@@ -1,0 +1,73 @@
+
+spring:
+  profiles:
+    active: local
+
+api:
+  server:
+     info: http://
+
+file:
+  server:
+      info: http://
+
+log:
+  path: /home
+
+restemplate:
+  connectionTimeOut: 3000
+  readTimeOut: 300
+  defaultMaxPerRoute: 20
+  maxToal: 50
+
+server:
+  port: 8081
+
+
+---
+spring:
+  profiles: dev
+
+server:
+  port: 8081
+
+api:
+  server:
+    info: http://
+
+file:
+  server:
+    info: http://
+
+log:
+  path: /home
+
+restemplate:
+  connectionTimeOut: 3000
+  readTimeOut: 300
+  defaultMaxPerRoute: 20
+  maxToal: 50
+---
+
+spring:
+  profiles: prod
+
+server:
+  port: 8081
+
+api:
+  server:
+    info: http://
+
+file:
+  server:
+    info: http://
+
+log:
+  path: /home
+
+restemplate:
+  connectionTimeOut: 3000
+  readTimeOut: 300
+  defaultMaxPerRoute: 20
+  maxToal: 50

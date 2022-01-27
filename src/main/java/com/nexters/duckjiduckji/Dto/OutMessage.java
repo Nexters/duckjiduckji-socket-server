@@ -1,15 +1,15 @@
 package com.nexters.duckjiduckji.Dto;
 
 import com.nexters.duckjiduckji.Const.MsgType;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
-@Builder
 @Getter
+@Setter
 @ToString
-public class OutDto implements MessageDto {
-    @Builder.Default
+@NoArgsConstructor
+@AllArgsConstructor
+public class OutMessage implements Message {
+
     private MsgType msgType = MsgType.LEAVE;
     private String userId;
     private String sendTime;

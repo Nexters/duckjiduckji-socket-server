@@ -1,21 +1,18 @@
 package com.nexters.duckjiduckji.Dto;
 
 import com.nexters.duckjiduckji.Const.MsgType;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.springframework.lang.Nullable;
+import lombok.*;
 
-@Builder
 @Getter
 @Setter
 @ToString
-public class PolaroidContentCreateDto implements MessageDto{
-    @Builder.Default
+@NoArgsConstructor
+@AllArgsConstructor
+public class ContentCreateDto implements Message {
+
     private MsgType msgType = MsgType.CREATE;
     private String contentId;
     private String contentType; // "PORAROID", "POSTIT"
-    private PolaroidInnerData data;
+    private ContentInnerData data;
     private String sendTime;
 }

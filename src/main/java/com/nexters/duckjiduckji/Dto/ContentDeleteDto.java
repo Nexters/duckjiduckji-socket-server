@@ -1,16 +1,15 @@
 package com.nexters.duckjiduckji.Dto;
 
 import com.nexters.duckjiduckji.Const.MsgType;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
-import org.springframework.lang.Nullable;
+import lombok.*;
 
-@Builder
 @Getter
+@Setter
 @ToString
-public class PolaroidContentDeleteDto implements MessageDto{
-    @Builder.Default
+@NoArgsConstructor
+@AllArgsConstructor
+public class ContentDeleteDto implements Message {
+
     private MsgType msgType = MsgType.DELETE;
     private String contentId;
     private String contentType; // "PORAROID", "POSTIT"
