@@ -62,7 +62,8 @@ public class MessageService {
     // IN
     public Message MessageInService(Message message, String roomId) {
         //callApiServer(apiServerUrl, HttpMethod.POST, message, jsonHeader, message.getClass());
-        if(true) throw new ApiServerException(roomId);
+        String errorMsg = "api 서버 error msg";
+        if(true) throw new ApiServerException(roomId + ":" + errorMsg);
 
         ((InMessage) message).setSendTime((apiHelper.getCurrentTime()));
         return message;

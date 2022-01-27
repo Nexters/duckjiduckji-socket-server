@@ -10,6 +10,7 @@ import lombok.*;
 public class ErrorMessage implements Message {
     @Builder.Default
     private MsgType msgType = MsgType.ERROR;
+    private String errorMsg;
     private String roomId;
     private String sendTime;
 }

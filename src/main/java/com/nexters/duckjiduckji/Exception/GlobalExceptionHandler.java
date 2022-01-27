@@ -22,9 +22,12 @@ public class GlobalExceptionHandler {
     public void handleApiServerException(Exception e) {
 
         e.printStackTrace();
-        String roomId = e.getMessage();
+        String error = e.getMessage();
+        String roomId = error.split(":")[0];
+        String errorMsg = error.split(":")[1];
 
         ErrorMessage errorMessage = ErrorMessage.builder()
+                                    .errorMsg(errorMsg)
                                     .roomId(roomId)
                                     .sendTime(apiHelper.getCurrentTime())
                                     .build();
