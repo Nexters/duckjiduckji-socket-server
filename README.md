@@ -23,8 +23,8 @@
     
     ```
     {
-    				 	msgType: ”JOIN”,
-    		      userId: “aaa1234”
+    	msgType: ”JOIN”,
+    	userId: “aaa1234”
     };
     ```
     
@@ -32,8 +32,8 @@
     
     ```
     {
-    				 	msgType: "LEAVE”,
-    		      userId: “aaa1234”
+    	msgType: "LEAVE”,
+    	userId: “aaa1234”
     };
     ```
     
@@ -45,41 +45,41 @@
         
         ------------------------> PORAROID
         {
-        					msgType : ”CREATE”,
-        					contentType: "PORAROID"
-        					data : {
-        				    images : [“http://.....”, “http://.....”],
-        				    title : “덕지덕지 회고방”,
-        				    content: “회고를 시작합니다!.....”,
-        						width: "100",
-        						height: "100",
-        						opacity: "0.1",
-        						font: "???",
-        					  point: {
-        							x: "100",
-        		 					y: "100",
-        							rotation: ??
-        						}
-        				 }
+        	msgType : ”CREATE”,
+        	contentType: "PORAROID"
+        	data : {
+        	    images : [“http://.....”, “http://.....”],
+        	    title : “덕지덕지 회고방”,
+        	    content: “회고를 시작합니다!.....”,
+        	    width: "100",
+        	    height: "100",
+        	    opacity: "0.1",
+        		font: "???",
+        	    point: {
+        			x: "100",
+        			y: "100",
+        			rotation: ??
+        		}
+        	}
         };
         
         ---------------------> POSIT (미사용)
         
         {
-        					msgType : ”CREATE”,
-        					contentType: "POSIT"
-        					data : {
-        				    content: “회고를 시작합니다!.....”,
-        						width: "100",
-        						height: "100",
-        						opacity: "0.1",
-        						font: "???",
-        					  point: {
-        							x: "100",
-        		 					y: "100",
-        							rotation: ??
-        						}
-        					}
+        	msgType : ”CREATE”,
+        	contentType: "POSIT"
+        	data : {
+                content: “회고를 시작합니다!.....”,
+        	    width: "100",
+        		height: "100",
+        		opacity: "0.1",
+        		font: "???",
+        	    point: {
+        			x: "100",
+        			y: "100",
+        			rotation: ??
+        		}
+        	}
         };
         
         ```
@@ -89,38 +89,38 @@
         ```
         --------------> 컨텐츠 데이터 규격(이미지, 제목, 사진)
         {
-        					msgType : ”UPDATE”,
-        					contentType: "PORAROID"
-        					contentId: “basd23as-22323..",
-        		      data: {
-        					    images : [“http://.....”],
-        					    title : “덕지덕지 회고방”,
-        					    content: “회고를 시작합니다!.....”,     
-        							opacity: "0.1",
-        							font: "???",
-        					} 
+        	    msgType : ”UPDATE”,
+        		contentType: "PORAROID"
+        		contentId: “basd23as-22323..",
+        		data: {
+        		    images : [“http://.....”],
+        		    title : “덕지덕지 회고방”,
+        			content: “회고를 시작합니다!.....”,     
+        			opacity: "0.1",
+        			font: "???",
+        		} 
         };
         
         {  ------------> 미사용
-        					msgType : ”UPDATE”,
-        					contentType: "POSTIT"
-        					contentId: “basd23as-22323..",
-        		      data: {
-        					    content: “회고를 시작합니다!.....”,     
-        					} 
+        		msgType : ”UPDATE”,
+        		contentType: "POSTIT"
+        		contentId: “basd23as-22323..",
+        	    data: {
+        		    content: “회고를 시작합니다!.....”,     
+        		} 
         };
         
         --------------> 컨텐츠 데이터 규격(위치, rotation)
         {
-        					msgType : ”DRAG”,
-        					contentId: “basd23as-22323..",
-        		      data : {
-        					   point: {
-        								x: "100",
-        			 					y: "100",
-        								rotation: ??
-        						 }
-        					}   
+        		msgType : ”DRAG”,
+        		contentId: “basd23as-22323..",
+        	    data : {
+        		   point: {
+        	    		x: "100",
+        				y: "100",
+        				rotation: ??
+        		    }
+        		}   
         };
         
         ```
@@ -134,11 +134,11 @@
     - **삭제**
         
         ```
-        *{*
-        					msgType : ”DELETE”,
-        					contentType: "POLAROID",
-        		      **contentId: “basd23as-22323.."
-        *};*
+        {
+        		msgType : ”DELETE”,
+        		contentType: "POLAROID",
+        	    contentId: “basd23as-22323.."
+        };
         ```
         
     
@@ -159,44 +159,44 @@
             
             ------------------------> PORAROID
             {
-            					msgType : ”CREATE”,
-            					contentType: "PORAROID"
-            					contentId: “basd23as-22323..",
-            					data : {
-            				    images : [“http://.....”, “http://.....”],
-            				    title : “덕지덕지 회고방”,
-            				    content: “회고를 시작합니다!.....”,
-            						width: "100",
-            						height: "100",
-            						opacity: "0.1",
-            						font: "???",
-            					  point: {
-            							x: "100",
-            		 					y: "100",
-            							rotation: ??
-            						}
-            				 }
-            				 responseTime : "2021-01-27 00:00:00"
+            		msgType : ”CREATE”,
+            		contentType: "PORAROID"
+            		contentId: “basd23as-22323..",
+            		data : {
+            		    images : [“http://.....”, “http://.....”],
+            		    title : “덕지덕지 회고방”,
+            		    content: “회고를 시작합니다!.....”,
+            			width: "100",
+            			height: "100",
+            			opacity: "0.1",
+            			font: "???",
+            	        point: {
+            				x: "100",
+            				y: "100",
+            				rotation: ??
+            			}
+            		 }
+            		 responseTime : "2021-01-27 00:00:00"
             };
             
             ---------------------> POSIT (미사용)
             
             {
-            					msgType : ”CREATE”,
-            					contentType: "POSIT"
-            					contentId: “basd23as-22323..",
-            					data : {
-            				    content: “회고를 시작합니다!.....”,
-            						width: "100",
-            						height: "100",
-            						opacity: "0.1",
-            						font: "???",
-            					    point: {
-            							x: "100",
-            		 					y: "100",
-            							rotation: ??
-            						}
-            					}
+            		msgType : ”CREATE”,
+            		contentType: "POSIT"
+            		contentId: “basd23as-22323..",
+            		data : {
+            	        content: “회고를 시작합니다!.....”,
+            			width: "100",
+            			height: "100",
+            			opacity: "0.1",
+            			font: "???",
+            		    point: {
+            				x: "100",
+            				y: "100",
+            				rotation: ??
+            				}
+            			}
             };
             
             ```
@@ -206,9 +206,9 @@
         
         ```
         {
-        					msgType : ”ERROR”,
-        					errorMsg: "api 서버 에러",
-        					roomId: "aaabasd-...",
-        					responseTime: "*2021-01-27 00:00:00*"
+        		msgType : ”ERROR”,
+        		errorMsg: "api 서버 에러",
+        		roomId: "aaabasd-...",
+        		responseTime: "2021-01-27 00:00:00"
         };
         ```
