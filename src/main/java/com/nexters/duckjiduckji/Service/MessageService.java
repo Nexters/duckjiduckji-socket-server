@@ -38,7 +38,7 @@ public class MessageService {
     }
 
     // CREATE
-    public Message MessageCreateService(Message message, String roomId) {
+    public Message createMessage(Message message, String roomId) {
         //String contentId = callApiServer(apiServerUrl, HttpMethod.POST, message, jsonHeader, message.getClass());
         ((ContentCreateDto) message).setContentId("aaaaaa");
         ((ContentCreateDto) message).setSendTime((apiHelper.getCurrentTime()));
@@ -46,21 +46,21 @@ public class MessageService {
     }
 
     // UPDATE
-    public Message MessageUpdateService(Message message, String roomId) {
+    public Message updateMessage(Message message, String roomId) {
        //callApiServer(apiServerUrl, HttpMethod.PUT, message, jsonHeader, message.getClass());
         ((ContentUpdateDto) message).setSendTime((apiHelper.getCurrentTime()));
         return message;
     }
 
     // DELETE
-    public Message MessageDeleteService(Message message, String roomId) {
+    public Message deleteMessage(Message message, String roomId) {
         //callApiServer(apiServerUrl, HttpMethod.DELETE, message, jsonHeader, message.getClass());
         ((ContentDeleteDto) message).setSendTime((apiHelper.getCurrentTime()));
         return message;
     }
 
     // IN
-    public Message MessageInService(Message message, String roomId) {
+    public Message inMessage(Message message, String roomId) {
         //callApiServer(apiServerUrl, HttpMethod.POST, message, jsonHeader, message.getClass());
         String errorMsg = "api 서버 error msg";
         if(true) throw new ApiServerException(roomId + ":" + errorMsg);
@@ -70,7 +70,7 @@ public class MessageService {
     }
 
     // OUT
-    public Message MessageOutService(Message message, String roomId) {
+    public Message outMessage(Message message, String roomId) {
         //callApiServer(apiServerUrl, HttpMethod.POST, message, jsonHeader, message.getClass());
         ((OutMessage) message).setSendTime((apiHelper.getCurrentTime()));
         return message;

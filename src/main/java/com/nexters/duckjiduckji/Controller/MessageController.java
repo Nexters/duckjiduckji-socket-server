@@ -26,20 +26,20 @@ public class MessageController {
     private final MessageService messageService;
     private final JsonUtil jsonUtil;
 
-
     // 방 in 처리
     @MessageMapping(value = "/room/{roomId}")
-    public void roomJoin(@DestinationVariable("roomId") String roomId, Message message)  {
+    public void roomJoin(@DestinationVariable("roomId") String roomId, Message message) {
 
         log.info(jsonUtil.printJson(message));
         MsgType msgType = message.getMsgType();
         Message forwardMessage = message;
 
-        if(msgType == MsgType.CREATE) forwardMessage = messageService.MessageCreateService(message, roomId);
-        else if(msgType == MsgType.UPDATE) forwardMessage = messageService.MessageUpdateService(message, roomId);
-        else if(msgType == MsgType.DELETE) forwardMessage = messageService.MessageDeleteService(message, roomId);
-        else if(msgType == MsgType.JOIN) forwardMessage = messageService.MessageInService(message, roomId);
-        else if(msgType == MsgType.LEAVE) forwardMessage = messageService.MessageOutService(message, roomId);
+        //함수명 변경
+        if(msgType == MsgType.CREATE) forwardMessage = messageService.createMessage(message, roomId);
+        else if(msgType == MsgType.UPDATE) forwardMessage = messageService.updateMessage(message, roomId);
+        else if(msgType == MsgType.DELETE) forwardMessage = messageService.deleteMessage(message, roomId);
+        else if(msgType == MsgType.JOIN) forwardMessage = messageService.inMessage(message, roomId);
+        else if(msgType == MsgType.LEAVE) forwardMessage = messageService.outMessage(message, roomId);
 
         template.convertAndSend("/subscribe/room/" + roomId, forwardMessage);
     }
