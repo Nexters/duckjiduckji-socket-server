@@ -10,6 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.ListOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -20,19 +23,24 @@ import org.springframework.web.client.RestTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 @Slf4j
 public class MessageService {
 
     private final RestTemplate restTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
     private final ApiHelper apiHelper;
     private final HttpHeaders jsonHeader;
 
     @Value("${api.server.info")
     private String apiServerUrl;
 
-    public MessageService(RestTemplate restTemplate, ApiHelper apiHelper, @Qualifier("application-json-header") HttpHeaders jsonHeader) {
+    public MessageService(RestTemplate restTemplate, RedisTemplate redisTemplate, ApiHelper apiHelper, @Qualifier("application-json-header") HttpHeaders jsonHeader) {
         this.restTemplate = restTemplate;
+        this.redisTemplate = redisTemplate;
         this.apiHelper = apiHelper;
         this.jsonHeader = jsonHeader;
     }
@@ -62,17 +70,48 @@ public class MessageService {
     // IN
     public Message inMessage(Message message, String roomId) {
         //callApiServer(apiServerUrl, HttpMethod.POST, message, jsonHeader, message.getClass());
-        String errorMsg = "api 서버 error msg";
-        if(true) throw new ApiServerException(roomId + ":" + errorMsg);
+        //String errorMsg = "api 서버 error msg";
+        //if(true) throw new ApiServerException(roomId + ":" + errorMsg);
 
-        ((InMessage) message).setSendTime((apiHelper.getCurrentTime()));
+        /*
+        InMessage inMessage = (InMessage) message;
+        String userId = inMessage.getUserId();
+        inMessage.setSendTime(apiHelper.getCurrentTime());
+
+        //hset roomId userId 1
+        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+        Map<String, Object> onLineUserMap = new HashMap<>();
+        onLineUserMap.put(userId, 1);
+        hashOperations.putAll(roomId, onLineUserMap);
+
+        //hgetall roomId -> room joinMember 조회
+        hashOperations.getOperations().boundHashOps(roomId);
+        */
         return message;
     }
 
     // OUT
     public Message outMessage(Message message, String roomId) {
         //callApiServer(apiServerUrl, HttpMethod.POST, message, jsonHeader, message.getClass());
-        ((OutMessage) message).setSendTime((apiHelper.getCurrentTime()));
+
+        /*
+        // redis delete
+        OutMessage outMessage = (OutMessage) message;
+        String userId = outMessage.getUserId();
+        outMessage.setSendTime(apiHelper.getCurrentTime());
+
+        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+
+        //hexists roomId userId -> 존재하면 !
+        //hdel roomId usetId -> 삭제
+        Map<String, Object> onLineUserMap = new HashMap<>();
+        onLineUserMap.put(userId, 1);
+        hashOperations.delete(roomId, onLineUserMap);
+
+        //hgetall roomId -> room joinMember 조회
+        hashOperations.getOperations().boundHashOps(roomId);
+
+         */
         return message;
     }
 
