@@ -1,15 +1,16 @@
 package com.nexters.duckjiduckji;
 
+import com.nexters.duckjiduckji.Dto.InMessage;
+import com.nexters.duckjiduckji.Dto.OutMessage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @SpringBootTest
 class DuckjiduckjiApplicationTests {
@@ -27,20 +28,21 @@ class DuckjiduckjiApplicationTests {
     void inTest( ) {
 
         String roomId = "abcde";
-        String userId = "xowns12327724";
+        String userId = "xowns12";
 
         //hset roomId userId 1
         HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
-        Map<String, Object> onLineUserMap = new HashMap<>();
-        onLineUserMap.put(userId, 1);
-        hashOperations.putAll(roomId, onLineUserMap);
+        hashOperations.put(roomId, userId, 1);
 
         //hgetall roomId -> room joinMember 조회
-        Map<Object, Object> entries = hashOperations.entries(roomId);
-        Set<Object> keySet = entries.keySet();
-        for(Object key : keySet) {
-            System.out.println(key);
-        }
+        List<String> onLineUsers = new ArrayList(hashOperations.entries(roomId).keySet());
+
+        InMessage inMessage = InMessage.builder()
+                                .userId(userId)
+                                .onlineUsers(onLineUsers)
+                                .build();
+
+        System.out.println(inMessage);
     }
 
     @Test
@@ -48,18 +50,19 @@ class DuckjiduckjiApplicationTests {
     void outTest( ) {
 
         String roomId = "abcde";
-        String userId = "xowns1234";
+        String userId = "xowns111";
 
         HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
-
-        Object exist = (hashOperations.get(roomId, userId));
-        if(exist != null) hashOperations.delete(roomId, userId);
+        hashOperations.delete(roomId, userId);
 
         //hgetall roomId -> room joinMember 조회
-        Map<Object, Object> entries = hashOperations.entries(roomId);
-        Set<Object> keySet = entries.keySet();
-          for (Object key : keySet) {
-             System.out.println(key);
-        }
+        List<String> onLineUsers = new ArrayList(hashOperations.entries(roomId).keySet());
+
+        OutMessage outMessage = OutMessage.builder()
+                .userId(userId)
+                .onlineUsers(onLineUsers)
+                .build();
+
+        System.out.println(outMessage);
     }
 }
