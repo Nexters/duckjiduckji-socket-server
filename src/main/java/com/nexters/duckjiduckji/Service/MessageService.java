@@ -23,7 +23,9 @@ import org.springframework.web.client.RestTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -73,46 +75,16 @@ public class MessageService {
         //String errorMsg = "api 서버 error msg";
         //if(true) throw new ApiServerException(roomId + ":" + errorMsg);
 
-        /*
-        InMessage inMessage = (InMessage) message;
-        String userId = inMessage.getUserId();
-        inMessage.setSendTime(apiHelper.getCurrentTime());
-
-        //hset roomId userId 1
-        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
-        Map<String, Object> onLineUserMap = new HashMap<>();
-        onLineUserMap.put(userId, 1);
-        hashOperations.putAll(roomId, onLineUserMap);
-
-        //hgetall roomId -> room joinMember 조회
-        hashOperations.getOperations().boundHashOps(roomId);
-        */
-        return message;
+        String userId = ((InMessage)message).getUserId();
+        return inProcess(roomId, userId);
     }
 
     // OUT
     public Message outMessage(Message message, String roomId) {
         //callApiServer(apiServerUrl, HttpMethod.POST, message, jsonHeader, message.getClass());
 
-        /*
-        // redis delete
-        OutMessage outMessage = (OutMessage) message;
-        String userId = outMessage.getUserId();
-        outMessage.setSendTime(apiHelper.getCurrentTime());
-
-        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
-
-        //hexists roomId userId -> 존재하면 !
-        //hdel roomId usetId -> 삭제
-        Map<String, Object> onLineUserMap = new HashMap<>();
-        onLineUserMap.put(userId, 1);
-        hashOperations.delete(roomId, onLineUserMap);
-
-        //hgetall roomId -> room joinMember 조회
-        hashOperations.getOperations().boundHashOps(roomId);
-
-         */
-        return message;
+        String userId = ((OutMessage)message).getUserId();
+        return outProcess(roomId, userId);
     }
 
 
@@ -130,5 +102,34 @@ public class MessageService {
         // response에서 content id만 파싱해서 응답
         if(className.equals("ContentCreateDto")) return "id";
         else return null;
+    }
+
+    public InMessage inProcess(String roomId, String userId) {
+        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+        hashOperations.put(roomId, userId, 1);
+
+        List<String> onLineUsers = new ArrayList(hashOperations.entries(roomId).keySet());
+
+        InMessage inMessage = InMessage.builder()
+                .userId(userId)
+                .onlineUsers(onLineUsers)
+                .build();
+
+        return inMessage;
+    }
+
+    public OutMessage outProcess(String roomId, String userId) {
+
+        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+        hashOperations.delete(roomId, userId);
+
+        List<String> onLineUsers = new ArrayList(hashOperations.entries(roomId).keySet());
+
+        OutMessage outMessage = OutMessage.builder()
+                .userId(userId)
+                .onlineUsers(onLineUsers)
+                .build();
+
+        return outMessage;
     }
 }
