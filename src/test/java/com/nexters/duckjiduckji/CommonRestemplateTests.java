@@ -1,0 +1,45 @@
+package com.nexters.duckjiduckji;
+
+import com.nexters.duckjiduckji.Common.Common;
+import com.nexters.duckjiduckji.Dto.ContentCreateDto;
+import com.nexters.duckjiduckji.ResponseDto.BaseApiResponse;
+import com.nexters.duckjiduckji.ResponseDto.ContentCreateApiResponse;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@SpringBootTest
+public class CommonRestemplateTests {
+
+    @Autowired
+    private Common common;
+
+    @Autowired
+    @Qualifier("application-json-header")
+    private HttpHeaders jsonHeader;
+
+    @Value("${api.server.info}")
+    private String serverInfo;
+
+    @Test
+    @DisplayName("api 서버 연동 테스트")
+    public void restemplateTest( ) {
+
+        ContentCreateDto contentCreateDto = ContentCreateDto.builder()
+                                            .contentId("aaaa")
+                                            .contentType("poraroid")
+                                            .data(null)
+                                            .build();
+
+        BaseApiResponse apiResponse = common.callApiServer(serverInfo, HttpMethod.POST, contentCreateDto, jsonHeader, ContentCreateApiResponse.class);
+
+        String statusCode = apiResponse.getCode();
+        assertEquals(statusCode, "200");
+    }
+}

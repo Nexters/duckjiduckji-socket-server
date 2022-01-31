@@ -1,30 +1,35 @@
 package com.nexters.duckjiduckji.Common;
 
+import com.nexters.duckjiduckji.Dto.Message;
+import com.nexters.duckjiduckji.Exception.type.ApiServerException;
+import com.nexters.duckjiduckji.ResponseDto.BaseApiResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class Common {
 
     private final RestTemplate restTemplate;
 
-    public Object callApiServer(String apiServerInfo, HttpMethod httpMethod, Object body, HttpHeaders headers, Class clazz) {
+    public BaseApiResponse callApiServer(String apiServerInfo, HttpMethod httpMethod, Message message, HttpHeaders headers, Class clazz) {
 
-        //apiServerInfo = "http://localhost:8888/test";
-        HttpEntity<Object> entity = new HttpEntity<>(body, headers);
-        ResponseEntity<Object> apiResponse = restTemplate.exchange(apiServerInfo, httpMethod, entity, clazz);
-        System.out.println(apiResponse);
+        HttpEntity<Object> entity = new HttpEntity<>(message, headers);
+        ResponseEntity<BaseApiResponse> apiResponse = restTemplate.exchange(apiServerInfo, httpMethod, entity, clazz);
+        log.info(apiResponse.toString());
 
-        //String className = clazz.getName().split(".")[4]; // com.nexters.duckjuduckj.Dto.ContentCreateDto
+        // httpStatus와 api 서버에서 오는 statusCode를 같이 봐야할듯??
+        if(apiResponse.getStatusCode() != HttpStatus.OK) {
+            throw new ApiServerException("api server error!");
+        }
 
-        System.out.println("callApiServer :" + apiResponse.getBody());
+        BaseApiResponse responseBody = apiResponse.getBody();
+        log.info("api server response : " + responseBody.toString());
 
-        return apiResponse.getBody();
+        return responseBody;
     }
 }

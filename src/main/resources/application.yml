@@ -10,7 +10,7 @@ spring:
 
 api:
   server:
-     info: http://
+     info: http://localhost:3000/test
 
 file:
   server:
