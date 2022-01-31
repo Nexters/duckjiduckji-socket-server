@@ -2,6 +2,7 @@ package com.nexters.duckjiduckji;
 
 import com.nexters.duckjiduckji.Dto.InMessage;
 import com.nexters.duckjiduckji.Dto.OutMessage;
+import com.nexters.duckjiduckji.Service.MessageService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ class DuckjiduckjiApplicationTests {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
+    @Autowired
+    private MessageService messageService;
+
     @Test
     void contextLoads() {
 
@@ -30,19 +34,12 @@ class DuckjiduckjiApplicationTests {
         String roomId = "abcde";
         String userId = "xowns12";
 
-        //hset roomId userId 1
-        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
-        hashOperations.put(roomId, userId, 1);
-
-        //hgetall roomId -> room joinMember 조회
-        List<String> onLineUsers = new ArrayList(hashOperations.entries(roomId).keySet());
-
         InMessage inMessage = InMessage.builder()
-                                .userId(userId)
-                                .onlineUsers(onLineUsers)
-                                .build();
+                             .userId(userId)
+                             .onlineUsers(null)
+                             .build();
 
-        System.out.println(inMessage);
+        System.out.println(messageService.inMessage(inMessage, roomId));
     }
 
     @Test
@@ -50,19 +47,15 @@ class DuckjiduckjiApplicationTests {
     void outTest( ) {
 
         String roomId = "abcde";
-        String userId = "xowns111";
-
-        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
-        hashOperations.delete(roomId, userId);
-
-        //hgetall roomId -> room joinMember 조회
-        List<String> onLineUsers = new ArrayList(hashOperations.entries(roomId).keySet());
+        String userId = "xowns12";
 
         OutMessage outMessage = OutMessage.builder()
                 .userId(userId)
-                .onlineUsers(onLineUsers)
+                .onlineUsers(null)
                 .build();
 
-        System.out.println(outMessage);
+
+        System.out.println(messageService.outMessage(outMessage, roomId));
     }
+
 }
