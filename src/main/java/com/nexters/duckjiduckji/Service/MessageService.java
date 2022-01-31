@@ -1,17 +1,13 @@
 package com.nexters.duckjiduckji.Service;
 
-import com.nexters.duckjiduckji.Const.MsgType;
-import com.nexters.duckjiduckji.Dto.*;
-import com.nexters.duckjiduckji.Exception.type.ApiServerException;
-import com.nexters.duckjiduckji.Util.ApiHelper;
-import lombok.RequiredArgsConstructor;
 
+import com.nexters.duckjiduckji.Dto.*;
+import com.nexters.duckjiduckji.Util.ApiHelper;
+import com.nexters.duckjiduckji.Util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,31 +16,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Slf4j
 public class MessageService {
 
-    private final RestTemplate restTemplate;
     private final RedisTemplate<String, Object> redisTemplate;
     private final ApiHelper apiHelper;
     private final HttpHeaders jsonHeader;
+    private final JsonUtil jsonUtil;
 
     @Value("${api.server.info")
     private String apiServerUrl;
 
-    public MessageService(RestTemplate restTemplate, RedisTemplate redisTemplate, ApiHelper apiHelper, @Qualifier("application-json-header") HttpHeaders jsonHeader) {
-        this.restTemplate = restTemplate;
+    public MessageService(RedisTemplate redisTemplate, ApiHelper apiHelper, @Qualifier("application-json-header") HttpHeaders jsonHeader, JsonUtil jsonUtil) {
         this.redisTemplate = redisTemplate;
         this.apiHelper = apiHelper;
         this.jsonHeader = jsonHeader;
+        this.jsonUtil = jsonUtil;
     }
 
     // CREATE
@@ -85,23 +76,6 @@ public class MessageService {
 
         String userId = ((OutMessage)message).getUserId();
         return outProcess(roomId, userId);
-    }
-
-
-    public String callApiServer(String apiServerInfo, HttpMethod httpMethod, Object body, HttpHeaders headers, Class clazz) {
-
-        apiServerInfo = "http://localhost:8888/test";
-        HttpEntity<Object> entity = new HttpEntity<>(body, headers);
-        ResponseEntity apiResponse = null;
-
-        apiResponse = restTemplate.exchange(apiServerInfo, httpMethod, entity, clazz);
-
-        String className = clazz.getName().split(".")[4]; // com.nexters.duckjuduckj.Dto.ContentCreateDto
-        log.info(apiResponse.toString());
-
-        // response에서 content id만 파싱해서 응답
-        if(className.equals("ContentCreateDto")) return "id";
-        else return null;
     }
 
     public InMessage inProcess(String roomId, String userId) {
