@@ -42,7 +42,7 @@
         console.log('roomId : ' + roomId);
         console.log('userId : ' + userId);
 
-        let sock = new SockJS("/stomp/chat"); // 채팅방 접속 url
+        let sock = new SockJS("/room"); // 채팅방 접속 url
         let client = Stomp.over(sock);
 
         // 1-------6 데이터 정의

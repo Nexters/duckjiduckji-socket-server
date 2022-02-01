@@ -3,6 +3,11 @@ spring:
   profiles:
     active: local
 
+  redis:
+     host: 127.0.0.1
+     port: 6379
+     password: dkwmfrjdns1!
+
 api:
   server:
      info: http://
@@ -20,13 +25,11 @@ restemplate:
 server:
   port: 8081
 
-logging:
-  level:
-    root: info
-
 ---
 spring:
-  profiles: dev
+  config:
+    activate:
+      on-profile: dev
 
 server:
   port: 8081
@@ -50,7 +53,9 @@ restemplate:
 ---
 
 spring:
-  profiles: prod
+  config:
+    activate:
+      on-profile: prod
 
 server:
   port: 8081
