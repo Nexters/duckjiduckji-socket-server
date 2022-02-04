@@ -29,7 +29,6 @@ public class GlobalExceptionHandler {
         ErrorMessage errorMessage = ErrorMessage.builder()
                                     .errorMsg(errorMsg)
                                     .roomId(roomId)
-                                    .sendTime(apiHelper.getCurrentTime())
                                     .build();
 
         template.convertAndSend("/subscribe/room/" + roomId, errorMessage);

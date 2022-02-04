@@ -12,5 +12,4 @@ public class ErrorMessage implements Message {
     private MsgType msgType = MsgType.ERROR;
     private String errorMsg;
     private String roomId;
-    private String sendTime;
 }

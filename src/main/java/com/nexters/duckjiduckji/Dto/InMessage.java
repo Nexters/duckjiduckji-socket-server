@@ -17,5 +17,4 @@ public class InMessage implements Message {
     private MsgType msgType = MsgType.JOIN;
     private String userId;
     private List<String> onlineUsers;
-    private String sendTime;
 }

@@ -1,22 +1,13 @@
 package com.nexters.duckjiduckji;
 
-import com.nexters.duckjiduckji.Common.Common;
-import com.nexters.duckjiduckji.Dto.ContentCreateDto;
 import com.nexters.duckjiduckji.Dto.InMessage;
 import com.nexters.duckjiduckji.Dto.OutMessage;
 import com.nexters.duckjiduckji.Service.MessageService;
-import lombok.*;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -30,6 +21,7 @@ class onLineUserTests {
 
     @Test
     @DisplayName("방 in")
+    @Disabled
     void inTest( ) {
 
         String roomId = "abcde";
@@ -51,6 +43,7 @@ class onLineUserTests {
 
     @Test
     @DisplayName("방 out")
+    @Disabled
     void outTest( ) {
 
         String roomId = "abcde";

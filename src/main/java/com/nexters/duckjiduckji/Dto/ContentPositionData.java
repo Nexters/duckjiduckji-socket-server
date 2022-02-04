@@ -10,5 +10,4 @@ import lombok.*;
 public class ContentPositionData {
     private String x;
     private String y;
-    private String rotation;
 }

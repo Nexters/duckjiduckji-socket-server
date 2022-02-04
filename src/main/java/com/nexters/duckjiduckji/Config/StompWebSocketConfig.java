@@ -13,6 +13,7 @@ public class StompWebSocketConfig  implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/room")
+                .setAllowedOriginPatterns("*")
                 .withSockJS(); // socketJs Client가 연결할 Connection 경로
     }
 
