@@ -79,6 +79,7 @@ public class MessageService {
     }
 
     public InMessage inProcess(String roomId, String userId) {
+
         HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
         hashOperations.put(roomId, userId, 1);
 

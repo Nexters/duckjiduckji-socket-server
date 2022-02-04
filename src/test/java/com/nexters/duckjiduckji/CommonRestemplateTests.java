@@ -1,9 +1,9 @@
 package com.nexters.duckjiduckji;
 
-import com.nexters.duckjiduckji.Common.Common;
+import com.nexters.duckjiduckji.External.External;
 import com.nexters.duckjiduckji.Dto.ContentCreateDto;
-import com.nexters.duckjiduckji.ResponseDto.BaseApiResponse;
-import com.nexters.duckjiduckji.ResponseDto.ContentCreateApiResponse;
+import com.nexters.duckjiduckji.ExternalApiResponse.baseResponse.ExternalBaseResponse;
+import com.nexters.duckjiduckji.ExternalApiResponse.response.ContentCreateResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +13,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 public class CommonRestemplateTests {
 
     @Autowired
-    private Common common;
+    private External external;
 
     @Autowired
     @Qualifier("application-json-header")
@@ -37,9 +38,9 @@ public class CommonRestemplateTests {
                                             .data(null)
                                             .build();
 
-        BaseApiResponse apiResponse = common.callApiServer(serverInfo, HttpMethod.POST, contentCreateDto, jsonHeader, ContentCreateApiResponse.class);
+        ExternalBaseResponse apiResponse = external.callApiServer(serverInfo, HttpMethod.POST, contentCreateDto, jsonHeader, ContentCreateResponse.class);
 
-        String statusCode = apiResponse.getCode();
-        assertEquals(statusCode, "200");
+        boolean statusCode = apiResponse.isSuccess();
+        assertTrue(statusCode);
     }
 }
