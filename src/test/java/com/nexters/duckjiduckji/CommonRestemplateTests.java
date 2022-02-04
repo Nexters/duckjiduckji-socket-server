@@ -4,6 +4,7 @@ import com.nexters.duckjiduckji.External.External;
 import com.nexters.duckjiduckji.Dto.ContentCreateDto;
 import com.nexters.duckjiduckji.ExternalApiResponse.baseResponse.ExternalBaseResponse;
 import com.nexters.duckjiduckji.ExternalApiResponse.response.ContentCreateResponse;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class CommonRestemplateTests {
 
     @Test
     @DisplayName("api 서버 연동 테스트")
+    @Disabled
     public void restemplateTest( ) {
 
         ContentCreateDto contentCreateDto = ContentCreateDto.builder()

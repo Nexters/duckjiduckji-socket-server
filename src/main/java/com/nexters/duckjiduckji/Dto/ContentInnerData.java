@@ -5,6 +5,8 @@ import lombok.*;
 @Builder
 @Getter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class ContentInnerData { // default 값 설정
     private String imgUrl;
     private String title;
