@@ -74,10 +74,10 @@
         						height: "100",
         						opacity: "0.1",
         						font: "???",
-        					  point: {
+                                rotation: ??,
+        					    point: {
         							x: "100",
         		 					y: "100",
-        							rotation: ??
         						}
         					}
         };
@@ -114,11 +114,11 @@
         {
         					msgType : ”DRAG”,
         					contentId: “basd23as-22323..",
+                            rotation: ??,
         		      data : {
         					   point: {
         								x: "100",
-        			 					y: "100",
-        								rotation: ??
+        			 					y: "100"
         						 }
         					}   
         };
@@ -135,9 +135,9 @@
         
         ```
         *{*
-        					msgType : ”DELETE”,
-        					contentType: "POLAROID",
-        		      **contentId: “basd23as-22323.."
+        			  msgType : ”DELETE”,
+        			  contentType: "POLAROID",
+        		      contentId: “basd23as-22323.."
         *};*
         ```
         
@@ -193,10 +193,10 @@
             						height: "100",
             						opacity: "0.1",
             						font: "???",
+                                    rotation: ??,
             					  point: {
             							x: "100",
-            		 					y: "100",
-            							rotation: ??
+            		 					y: "100"
             						}
             				 }
             };
@@ -213,10 +213,10 @@
             						height: "100",
             						opacity: "0.1",
             						font: "???",
+                                    rotation: ??,
             					  point: {
             							x: "100",
-            		 					y: "100",
-            							rotation: ??
+            		 					y: "100"
             						}
             					}
             };
