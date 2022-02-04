@@ -17,5 +17,4 @@ public class OutMessage implements Message {
     private MsgType msgType = MsgType.LEAVE;
     private String userId;
     private List<String> onlineUsers;
-    private String sendTime;
 }

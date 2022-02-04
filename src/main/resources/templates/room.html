@@ -46,8 +46,8 @@
         let client = Stomp.over(sock);
 
         // 1-------6 데이터 정의
-        let JOIN_DATA = {msgType: "JOIN", userId: userId, sendTime: new Date()};
-        let LEAVE_DATA = {msgType: "LEAVE", userId: userId, sendTime: new Date()};
+        let JOIN_DATA = {msgType: "JOIN", userId: userId};
+        let LEAVE_DATA = {msgType: "LEAVE", userId: userId};
         let CREATE_DATA = { };
         let DELETE_DATA = { };
 
@@ -137,8 +137,7 @@
                             y: posY,
                             rotation: rotation
                         }
-                },
-                sendTime: new Date()
+                }
             };
 
             client.send('/publish/room/' + roomId, {}, JSON.stringify(CREATE_DATA));
@@ -168,8 +167,7 @@
                     imgUrl: imgUrl,
                     title: title,
                     content: content
-                },
-                sendTime: new Date()
+                }
             };
 
             client.send('/publish/room/' + roomId, {}, JSON.stringify(UPDATE_DATA));
@@ -187,8 +185,7 @@
             let DELETE_DATA = {
                 msgType: "DELETE",
                 contentType: "PORAROID",
-                contentId: polaroidId,
-                sendTime: new Date()
+                contentId: polaroidId
             };
 
             client.send('/publish/room/' + roomId, {}, JSON.stringify(DELETE_DATA));
@@ -212,8 +209,7 @@
                             y: posY,
                             rotation: rotation
                         }
-                    },
-                    sendTime: new Date()
+                    }
             };
 
             client.send('/publish/room/' + roomId, {}, JSON.stringify(DRAG_DATA));

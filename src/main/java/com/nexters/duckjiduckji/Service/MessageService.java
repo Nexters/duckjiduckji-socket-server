@@ -42,21 +42,18 @@ public class MessageService {
     public Message createMessage(Message message, String roomId) {
         //String contentId = callApiServer(apiServerUrl, HttpMethod.POST, message, jsonHeader, message.getClass());
         ((ContentCreateDto) message).setContentId("aaaaaa");
-        ((ContentCreateDto) message).setSendTime((apiHelper.getCurrentTime()));
         return message;
     }
 
     // UPDATE
     public Message updateMessage(Message message, String roomId) {
        //callApiServer(apiServerUrl, HttpMethod.PUT, message, jsonHeader, message.getClass());
-        ((ContentUpdateDto) message).setSendTime((apiHelper.getCurrentTime()));
         return message;
     }
 
     // DELETE
     public Message deleteMessage(Message message, String roomId) {
         //callApiServer(apiServerUrl, HttpMethod.DELETE, message, jsonHeader, message.getClass());
-        ((ContentDeleteDto) message).setSendTime((apiHelper.getCurrentTime()));
         return message;
     }
 

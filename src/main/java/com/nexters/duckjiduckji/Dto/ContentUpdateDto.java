@@ -14,5 +14,4 @@ public class ContentUpdateDto implements Message {
     private String contentType; // "PORAROID", "POSTIT"
     private String contentId;
     private ContentInnerData data;
-    private String sendTime;
 }
