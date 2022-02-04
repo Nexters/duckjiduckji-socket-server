@@ -11,7 +11,7 @@
 <div class="content" data-room-id="{{room.id}}" data-member="{{name}}">
     <ul class="chat_box">
     </ul>
-    폴라로이드 id : <input name="polaroidId"><br>
+    폴라로이드 id : <input name="contentId"><br>
     imgUrl : <input name="imgUrl"><br>
     title : <input name="title"><br>
     content : <input name="content"><br><br>
@@ -62,7 +62,7 @@
                     let content = JSON.parse(chat.body);
                     console.log(content);
                     let msgType = content['msgType'];
-                    let polaroidId = content['polaroidId'];
+                    let contentId = content['contentId'];
                     let msg = content['content'];
                     let guestId = content['userId'];
 
@@ -74,13 +74,13 @@
                     } else if(msgType == "LEAVE") {
                         chatBox.append('<li>' + guestId + '퇴장하였습니다.</li>');
                     } else if(msgType == "CREATE") {
-                        chatBox.append('<li>' + polaroidId + '글 생성!</li>');
+                        chatBox.append('<li>' + contentId + '글 생성!</li>');
                     } else if(msgType == "UPDATE") {
-                        chatBox.append('<li>' + polaroidId + '글 수정!</li>');
+                        chatBox.append('<li>' + contentId + '글 수정!</li>');
                     } else if(msgType == "DELETE") {
-                        chatBox.append('<li>' + polaroidId + '글 삭제!</li>');
+                        chatBox.append('<li>' + contentId + '글 삭제!</li>');
                     } else if(msgType == "DRAG") {
-                        chatBox.append('<li>' + polaroidId + '글 위치 이동!</li>');
+                        chatBox.append('<li>' + contentId + '글 위치 이동!</li>');
                     } else if(msgType == "ERROR") {
                         chatBox.append('<li>' + '서버 에러!!</li>');
                     }
@@ -104,7 +104,7 @@
         // 메시지 전송을 하면 같은 방에있는 다른 사람들에게 메시지 전송 -> 정확히 말하면 채널로 전송하고 다른 사람들은 그 채널 통해 메시지 받음
         // 3. 폴라로이드 생성
         sendBtn.click(function () {
-            let polaroidId = $('input[name="polaroidId"]').val();
+            let contentId = $('input[name="contentId"]').val();
             let imgUrl = $('input[name="imgUrl"]').val();
             let title = $('input[name="title"]').val();
             let content = $('input[name="content"]').val();
@@ -113,7 +113,7 @@
             let rotation = $('input[name="rotation"]').val();
 
 
-            console.log("contentId : " + polaroidId);
+            console.log("contentId : " + contentId);
             console.log("imgUrl : " + imgUrl);
             console.log("title : " + title);
             console.log("content : " + content);
@@ -141,7 +141,7 @@
             };
 
             client.send('/publish/room/' + roomId, {}, JSON.stringify(CREATE_DATA));
-            $('input[name="polaroidId"]').val('');
+            $('input[name="contentId"]').val('');
             $('input[name="imgUrl"]').val('');
             $('input[name="title"]').val('');
             $('input[name="content"]').val('');
@@ -149,12 +149,12 @@
 
        // 4. 폴라로이드 수정
         sendBtn2.click(function () {
-            let polaroidId = $('input[name="polaroidId"]').val();
+            let contentId = $('input[name="contentId"]').val();
             let imgUrl = $('input[name="imgUrl"]').val();
             let title = $('input[name="title"]').val();
             let content = $('input[name="content"]').val();
 
-            console.log("contentId : " + polaroidId);
+            console.log("contentId : " + contentId);
             console.log("imgUrl : " + imgUrl);
             console.log("title : " + title);
             console.log("content : " + content);
@@ -162,7 +162,7 @@
             let UPDATE_DATA = {
                 msgType: "UPDATE",
                 contentType: "PORAROID",
-                contentId: polaroidId,
+                contentId: contentId,
                 data : {
                     imgUrl: imgUrl,
                     title: title,
@@ -171,7 +171,7 @@
             };
 
             client.send('/publish/room/' + roomId, {}, JSON.stringify(UPDATE_DATA));
-            $('input[name="polaroidId"]').val('');
+            $('input[name="contentId"]').val('');
             $('input[name="imgUrl"]').val('');
             $('input[name="title"]').val('');
             $('input[name="content"]').val('');
@@ -179,30 +179,30 @@
 
         // 5. 폴라로이드 삭제
         sendBtn4.click(function () {
-            let polaroidId = $('input[name="polaroidId"]').val();
-            console.log("contentId : " + polaroidId);
+            let contentId = $('input[name="contentId"]').val();
+            console.log("contentId : " + contentId);
 
             let DELETE_DATA = {
                 msgType: "DELETE",
                 contentType: "PORAROID",
-                contentId: polaroidId
+                contentId: contentId
             };
 
             client.send('/publish/room/' + roomId, {}, JSON.stringify(DELETE_DATA));
-            $('input[name="polaroidId"]').val('');
+            $('input[name="contentId"]').val('');
         });
 
        // 6. 드레그 이벤트
         sendBtn3.click(function () {
-            let polaroidId = $('input[name="polaroidId"]').val();
+            let contentId = $('input[name="contentId"]').val();
             let posX = $('input[name="posX"]').val();
             let posY = $('input[name="posY"]').val();
             let rotation = $('input[name="rotation"]').val();
 
             let DRAG_DATA = {
                     msgType: "DRAG",
+                    contentId: contentId,
                     contentType: "POLAROID",
-                    contentId: polaroidId,
                     rotation: rotation,
                     data: {
                         point : {
@@ -214,7 +214,7 @@
 
             client.send('/publish/room/' + roomId, {}, JSON.stringify(DRAG_DATA));
 
-            $('input[name="polaroidId"]').val('');
+            $('input[name="contentId"]').val('');
             $('input[name="posX"]').val('');
             $('input[name="posY"]').val('');
             $('input[name="rotation"]').val('');

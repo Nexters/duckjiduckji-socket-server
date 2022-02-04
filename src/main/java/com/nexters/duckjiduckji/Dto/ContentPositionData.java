@@ -5,8 +5,8 @@ import lombok.*;
 @Builder
 @Getter
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class ContentPositionData {
     private String x;
     private String y;
