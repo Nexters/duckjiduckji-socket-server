@@ -33,7 +33,7 @@
     
     ```
    {
-	   "msgType":"”,
+	   "msgType":"LEAVE”,
 	   "roomId":"aaaaab....",
 	   "userId":“aaa1234”
     }
@@ -41,11 +41,17 @@
     
     ## 컨텐츠(폴라로이드, 포스팃)
     
+    **폴라로이드 생성, 수정 상세 절차** 
+    
+    1. 파일 서버로 파일 전송 후 url 받음
+    2. 이미지 url, 글 내용을 socket server로 전송
+    
+    
     - **생성**
         
         ```
     	{
-		   "msgType":"”CREATE”",
+		   "msgType":”CREATE”,
 		   "roomId":"aaaaab....",
 		   "contentId": null,
 		   "userId": "xowns9418",
@@ -74,7 +80,7 @@
       ```
       --------------> 컨텐츠 데이터 규격(이미지, 제목, 사진)
      	{
-		   "msgType":"”CREATE”",
+		   "msgType":"UPDATE",
 		   "roomId":"aaaaab....",
 		   "contentId": "asdklasds...",
 		   "userId": "xowns9418",
@@ -108,18 +114,12 @@
 			}   
 		}
       ```
-        
-    
-    **폴라로이드 생성, 수정 상세 절차** 
-    
-    1. 파일 서버로 파일 전송 후 url 받음
-    2. 이미지 url, 글 제목, 글 내용을 socket server로 전송
-    
+            
     - **삭제**
         
         ```
 		{
-		   "msgType":"”DELETE”",
+		   "msgType":”DELETE",
 		   "roomId":"aaaab...",
 		   "userId":"xowns9418",
 		   "contentType":"POLAROID",
@@ -135,9 +135,7 @@
             - 컨텐츠 생성
                 - contentId 추가
             - 방 참여/퇴장
-                - 현재 방에 있는 유저 리스트
-        - 모든 publish 데이터에서 responseTime 추가
-            
+                - 현재 방에 있는 유저 리스트   
             
         
         ## 방 참여
@@ -172,7 +170,7 @@
         ## 컨텐츠
         
         - **생성**
-            - publish 규격에서 contentId 추가
+            - publish 규격에서 contentId 값 추가
             
              
         ```
