@@ -31,9 +31,9 @@
     
     ## 방 퇴장
     
-    ```javascript
+    ```
    {
-	   "msgType":"”JOIN”",
+	   "msgType":"”,
 	   "roomId":"aaaaab....",
 	   "userId":“aaa1234”
     }
