@@ -174,29 +174,29 @@
             
              
         ```
-    	{
-		   "msgType":"”CREATE”",
-		   "roomId":"aaaaab....",
-		   "contentId": "aabdf3e...",
-		   "userId": "xowns9418",
-		   "contentType":"PORAROID""data":{
-		      "images":[
-			 "“http":,
-			 "“http":
-		      ],
-		      "title":"덕지덕지 회고방",
-		      "content":"회고를 시작합니다!.....",
-		      "width":"100",
-		      "height":"100",
-		      "opacity":"0.1",
-		      "font":"???",
-		      "rotation":"??
-		      "point":{
-			 "x":"100",
-			 "y":"100"
-		      }
-		   }
-      }
+		{
+			   "msgType":"”CREATE”",
+			   "roomId":"aaaaab....",
+			   "contentId": "aabdf3e...",
+			   "userId": "xowns9418",
+			   "contentType":"PORAROID""data":{
+			      "images":[
+				 "“http":,
+				 "“http":
+			      ],
+			      "title":"덕지덕지 회고방",
+			      "content":"회고를 시작합니다!.....",
+			      "width":"100",
+			      "height":"100",
+			      "opacity":"0.1",
+			      "font":"???",
+			      "rotation":"??
+			      "point":{
+				 "x":"100",
+				 "y":"100"
+			      }
+			   }
+	      }
       ```
             
         
