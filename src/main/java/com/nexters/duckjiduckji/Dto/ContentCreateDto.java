@@ -16,5 +16,6 @@ public class ContentCreateDto implements Message {
     private String roomId;
     private String contentId;
     private String contentType; // "PORAROID", "POSTIT"
+    private String userId;
     private ContentInnerData data;
 }

@@ -122,6 +122,7 @@
                 msgType: "CREATE",
                 roomId: roomId,
                 contentId: contentId,
+                userId: userId,
                 contentType: "PORAROID",
                 data : {
                         images: [{
@@ -161,6 +162,7 @@
                 roomId: roomId,
                 contentType: "PORAROID",
                 contentId: contentId,
+                userId: userId,
                 data : {
                     images: [{
                         link: imgUrl
@@ -184,7 +186,8 @@
                 msgType: "DELETE",
                 roomId: roomId,
                 contentType: "PORAROID",
-                contentId: contentId
+                contentId: contentId,
+                userId: userId
             };
 
             client.send('/publish/room/' + roomId, {}, JSON.stringify(DELETE_DATA));
@@ -203,7 +206,9 @@
                     roomId: roomId,
                     contentId: contentId,
                     contentType: "POLAROID",
+                    userId: userId,
                     data: {
+
                         rotation: rotation,
                         point : {
                             x: posX,

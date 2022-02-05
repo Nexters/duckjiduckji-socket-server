@@ -86,32 +86,32 @@ public class MessageService {
     }
 
     public InMessage inProcess(String roomId, String userId) {
-
+        /*
         HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
         hashOperations.put(roomId, userId, 1);
 
         List<String> onLineUsers = new ArrayList(hashOperations.entries(roomId).keySet());
-
+*/
         InMessage inMessage = InMessage.builder()
                 .roomId(roomId)
                 .userId(userId)
-                .onlineUsers(onLineUsers)
+                .onlineUsers(null)
                 .build();
 
         return inMessage;
     }
 
     public OutMessage outProcess(String roomId, String userId) {
-
+/*
         HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
         hashOperations.delete(roomId, userId);
 
         List<String> onLineUsers = new ArrayList(hashOperations.entries(roomId).keySet());
-
+*/
         OutMessage outMessage = OutMessage.builder()
                 .roomId(roomId)
                 .userId(userId)
-                .onlineUsers(onLineUsers)
+                .onlineUsers(null)
                 .build();
 
         return outMessage;
