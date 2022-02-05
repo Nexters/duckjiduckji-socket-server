@@ -9,5 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Image {
+    private int order;
     private String link;
 }
