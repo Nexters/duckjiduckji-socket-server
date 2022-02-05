@@ -11,7 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 public class ContentInnerData { // default 값 설정
     private List<Image> images;
-    private String title;
     private String content;
     private String width;
     private String height;

@@ -28,11 +28,12 @@ class onLineUserTests {
         String userId = "xowns12";
 
         InMessage inMessage = InMessage.builder()
+                             .roomId(roomId)
                              .userId(userId)
                              .onlineUsers(null)
                              .build();
 
-        InMessage inRes = (InMessage) messageService.inMessage(inMessage, roomId);
+        InMessage inRes = (InMessage) messageService.inMessage(inMessage);
         List<String> onlineUser = inRes.getOnlineUsers();
 
         boolean flag = false;
@@ -50,19 +51,21 @@ class onLineUserTests {
         String userId = "xowns12";
 
         InMessage inMessage = InMessage.builder()
+                .roomId(roomId)
                 .userId(userId)
                 .onlineUsers(null)
                 .build();
 
         // 방 in
-        messageService.inMessage(inMessage, roomId);
+        messageService.inMessage(inMessage);
 
         OutMessage outMessage = OutMessage.builder()
+                .roomId(roomId)
                 .userId(userId)
                 .onlineUsers(null)
                 .build();
 
-        OutMessage outRes = (OutMessage) messageService.outMessage(outMessage, roomId);
+        OutMessage outRes = (OutMessage) messageService.outMessage(outMessage);
         List<String> onlineUser = outRes.getOnlineUsers();
 
         boolean flag = false;

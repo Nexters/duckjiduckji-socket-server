@@ -11,6 +11,7 @@ import lombok.*;
 public class ContentDeleteDto implements Message {
 
     private MsgType msgType = MsgType.DELETE;
+    private String roomId;
     private String contentId;
     private String contentType; // "PORAROID", "POSTIT"
 }
