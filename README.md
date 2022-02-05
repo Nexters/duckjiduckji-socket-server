@@ -58,8 +58,14 @@
 		   "contentType":"PORAROID"
 		   "data":{
 		      "images":[
-			 “http://",
-			 “http://"
+			 {
+			 	"order": 0,
+			 	"link": “http://"
+			 },
+			 {
+			 	"order": 1,
+			 	"link": “http://"
+		 	 }
 		      ],
 		      "content":"회고를 시작합니다!.....",
 		      "width":"100",
@@ -86,9 +92,15 @@
 		   "userId": "xowns9418",
 		   "contentType":"PORAROID"
 		   "data":{
-		      "images":[
-			 "http://",
-			 "http://"
+		        "images":[
+			 {
+			 	"order": 0,
+			 	"link": “http://"
+			 },
+			 {
+			 	"order": 1,
+			 	"link": “http://"
+		 	 }
 		      ],
 		      "content":"회고를 시작합니다!.....",
 		      "width":"100",
@@ -179,10 +191,17 @@
 			   "roomId":"aaaaab....",
 			   "contentId": "aabdf3e...",
 			   "userId": "xowns9418",
-			   "contentType":"PORAROID""data":{
-			      "images":[
-				 "“http":,
-				 "“http":
+			   "contentType":"PORAROID",
+			   "data":{
+			         "images":[
+				 {
+					"order": 0,
+					"link": “http://"
+				 },
+				 {
+					"order": 1,
+					"link": “http://"
+				 }
 			      ],
 			      "title":"덕지덕지 회고방",
 			      "content":"회고를 시작합니다!.....",
@@ -204,7 +223,7 @@
         
         ```
   	   	{
-		   "msgType":"”ERROR”",
+		   "msgType":”ERROR",
 		   "roomId":"aaaab...",
 		   "errorMsg":"api 서버 에러"
 		}
