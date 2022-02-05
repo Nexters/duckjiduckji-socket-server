@@ -35,11 +35,12 @@ public class MessageController {
         Message forwardMessage = message;
 
         //함수명 변경
-        if(msgType == MsgType.CREATE) forwardMessage = messageService.createMessage(message, roomId);
-        else if(msgType == MsgType.UPDATE) forwardMessage = messageService.updateMessage(message, roomId);
-        else if(msgType == MsgType.DELETE) forwardMessage = messageService.deleteMessage(message, roomId);
-        else if(msgType == MsgType.JOIN) forwardMessage = messageService.inMessage(message, roomId);
-        else if(msgType == MsgType.LEAVE) forwardMessage = messageService.outMessage(message, roomId);
+        if(msgType == MsgType.CREATE) forwardMessage = messageService.createMessage(message);
+        else if(msgType == MsgType.UPDATE) forwardMessage = messageService.updateMessage(message);
+        else if(msgType == MsgType.DELETE) forwardMessage = messageService.deleteMessage(message);
+        else if(msgType == MsgType.DRAG) forwardMessage = messageService.dragMessage(message);
+        else if(msgType == MsgType.JOIN) forwardMessage = messageService.inMessage(message);
+        else if(msgType == MsgType.LEAVE) forwardMessage = messageService.outMessage(message);
 
         template.convertAndSend("/subscribe/room/" + roomId, forwardMessage);
     }

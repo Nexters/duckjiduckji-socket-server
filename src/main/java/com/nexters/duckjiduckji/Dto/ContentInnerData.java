@@ -2,14 +2,15 @@ package com.nexters.duckjiduckji.Dto;
 
 import lombok.*;
 
+import java.util.List;
+
 @Builder
 @Getter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class ContentInnerData { // default 값 설정
-    private String imgUrl;
-    private String title;
+    private List<Image> images;
     private String content;
     private String width;
     private String height;

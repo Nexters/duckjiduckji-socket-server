@@ -39,39 +39,49 @@ public class MessageService {
     }
 
     // CREATE
-    public Message createMessage(Message message, String roomId) {
+    public Message createMessage(Message message) {
         //String contentId = callApiServer(apiServerUrl, HttpMethod.POST, message, jsonHeader, message.getClass());
         ((ContentCreateDto) message).setContentId("aaaaaa");
         return message;
     }
 
     // UPDATE
-    public Message updateMessage(Message message, String roomId) {
+    public Message updateMessage(Message message) {
        //callApiServer(apiServerUrl, HttpMethod.PUT, message, jsonHeader, message.getClass());
         return message;
     }
 
     // DELETE
-    public Message deleteMessage(Message message, String roomId) {
+    public Message deleteMessage(Message message) {
         //callApiServer(apiServerUrl, HttpMethod.DELETE, message, jsonHeader, message.getClass());
         return message;
     }
 
+    // DRAG
+    public Message dragMessage(Message message) {
+        //callApiServer(apiServerUrl, HttpMethod.PUT, message, jsonHeader, message.getClass());
+        return message;
+    }
+
     // IN
-    public Message inMessage(Message message, String roomId) {
+    public Message inMessage(Message message) {
         //callApiServer(apiServerUrl, HttpMethod.POST, message, jsonHeader, message.getClass());
         //String errorMsg = "api 서버 error msg";
         //if(true) throw new ApiServerException(roomId + ":" + errorMsg);
 
-        String userId = ((InMessage)message).getUserId();
+        InMessage inMessage = (InMessage) message;
+        String roomId = inMessage.getRoomId();
+        String userId = inMessage.getUserId();
+
         return inProcess(roomId, userId);
     }
 
     // OUT
-    public Message outMessage(Message message, String roomId) {
-        //callApiServer(apiServerUrl, HttpMethod.POST, message, jsonHeader, message.getClass());
+    public Message outMessage(Message message) {
 
-        String userId = ((OutMessage)message).getUserId();
+        OutMessage outMessage = (OutMessage) message;
+        String roomId = outMessage.getRoomId();
+        String userId = outMessage.getUserId();
         return outProcess(roomId, userId);
     }
 
@@ -83,6 +93,7 @@ public class MessageService {
         List<String> onLineUsers = new ArrayList(hashOperations.entries(roomId).keySet());
 
         InMessage inMessage = InMessage.builder()
+                .roomId(roomId)
                 .userId(userId)
                 .onlineUsers(onLineUsers)
                 .build();
@@ -98,6 +109,7 @@ public class MessageService {
         List<String> onLineUsers = new ArrayList(hashOperations.entries(roomId).keySet());
 
         OutMessage outMessage = OutMessage.builder()
+                .roomId(roomId)
                 .userId(userId)
                 .onlineUsers(onLineUsers)
                 .build();

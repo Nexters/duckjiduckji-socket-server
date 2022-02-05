@@ -11,6 +11,7 @@ import lombok.*;
 public class ContentUpdateDto implements Message {
 
     private MsgType msgType = MsgType.UPDATE;
+    private String roomId;
     private String contentType; // "PORAROID", "POSTIT"
     private String contentId;
     private ContentInnerData data;

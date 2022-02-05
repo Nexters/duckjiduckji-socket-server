@@ -15,6 +15,7 @@ public class InMessage implements Message {
 
     @Builder.Default
     private MsgType msgType = MsgType.JOIN;
+    private String roomId;
     private String userId;
     private List<String> onlineUsers;
 }

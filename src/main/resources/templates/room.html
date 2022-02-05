@@ -13,7 +13,6 @@
     </ul>
     폴라로이드 id : <input name="contentId"><br>
     imgUrl : <input name="imgUrl"><br>
-    title : <input name="title"><br>
     content : <input name="content"><br><br>
     <hr>
     posX : <input name="posX"><br><br>
@@ -46,8 +45,8 @@
         let client = Stomp.over(sock);
 
         // 1-------6 데이터 정의
-        let JOIN_DATA = {msgType: "JOIN", userId: userId};
-        let LEAVE_DATA = {msgType: "LEAVE", userId: userId};
+        let JOIN_DATA = {msgType: "JOIN", roomId: roomId, userId: userId};
+        let LEAVE_DATA = {msgType: "LEAVE", roomId: roomId, userId: userId};
         let CREATE_DATA = { };
         let DELETE_DATA = { };
 
@@ -106,7 +105,6 @@
         sendBtn.click(function () {
             let contentId = $('input[name="contentId"]').val();
             let imgUrl = $('input[name="imgUrl"]').val();
-            let title = $('input[name="title"]').val();
             let content = $('input[name="content"]').val();
             let posX = $('input[name="posX"]').val();
             let posY = $('input[name="posY"]').val();
@@ -115,7 +113,6 @@
 
             console.log("contentId : " + contentId);
             console.log("imgUrl : " + imgUrl);
-            console.log("title : " + title);
             console.log("content : " + content);
             console.log("posX : " + posX);
             console.log("posY : " + posY);
@@ -123,19 +120,22 @@
 
             let CREATE_DATA = {
                 msgType: "CREATE",
+                roomId: roomId,
+                contentId: contentId,
                 contentType: "PORAROID",
                 data : {
-                        imgUrl: imgUrl,
-                        title: title,
+                        images: [{
+                            link: imgUrl
+                        }],
                         content: content,
                         width: "100",
                         height: "100",
                         opacity: "0.1",
                         font: "FONT",
+                        rotation: rotation,
                         point: {
                             x: posX,
-                            y: posY,
-                            rotation: rotation
+                            y: posY
                         }
                 }
             };
@@ -143,7 +143,6 @@
             client.send('/publish/room/' + roomId, {}, JSON.stringify(CREATE_DATA));
             $('input[name="contentId"]').val('');
             $('input[name="imgUrl"]').val('');
-            $('input[name="title"]').val('');
             $('input[name="content"]').val('');
         });
 
@@ -151,21 +150,21 @@
         sendBtn2.click(function () {
             let contentId = $('input[name="contentId"]').val();
             let imgUrl = $('input[name="imgUrl"]').val();
-            let title = $('input[name="title"]').val();
             let content = $('input[name="content"]').val();
 
             console.log("contentId : " + contentId);
             console.log("imgUrl : " + imgUrl);
-            console.log("title : " + title);
             console.log("content : " + content);
 
             let UPDATE_DATA = {
                 msgType: "UPDATE",
+                roomId: roomId,
                 contentType: "PORAROID",
                 contentId: contentId,
                 data : {
-                    imgUrl: imgUrl,
-                    title: title,
+                    images: [{
+                        link: imgUrl
+                    }],
                     content: content
                 }
             };
@@ -173,7 +172,6 @@
             client.send('/publish/room/' + roomId, {}, JSON.stringify(UPDATE_DATA));
             $('input[name="contentId"]').val('');
             $('input[name="imgUrl"]').val('');
-            $('input[name="title"]').val('');
             $('input[name="content"]').val('');
         });
 
@@ -184,6 +182,7 @@
 
             let DELETE_DATA = {
                 msgType: "DELETE",
+                roomId: roomId,
                 contentType: "PORAROID",
                 contentId: contentId
             };
@@ -201,10 +200,11 @@
 
             let DRAG_DATA = {
                     msgType: "DRAG",
+                    roomId: roomId,
                     contentId: contentId,
                     contentType: "POLAROID",
-                    rotation: rotation,
                     data: {
+                        rotation: rotation,
                         point : {
                             x: posX,
                             y: posY
