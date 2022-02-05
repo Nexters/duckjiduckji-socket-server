@@ -24,6 +24,7 @@
     ```
     {
     			msgType: ”JOIN”,
+                roomId: "aaaaab....",
     		    userId: “aaa1234”
     };
     ```
@@ -32,8 +33,9 @@
     
     ```
     {
-    				 	msgType: "LEAVE”,
-    		      userId: “aaa1234”
+    			msgType: "LEAVE”,
+                roomId : "aaaaab....",
+        	    userId: “aaa1234”
     };
     ```
     
@@ -46,6 +48,7 @@
         ------------------------> PORAROID
         {
         					msgType : ”CREATE”,
+                            roomId: "aaaaab....",
         					contentType: "PORAROID"
         					data : {
         				    images : [“http://.....”, “http://.....”],
@@ -67,6 +70,7 @@
         
         {
         					msgType : ”CREATE”,
+                            roomId: "aaaaa...",
         					contentType: "POSIT"
         					data : {
         				    content: “회고를 시작합니다!.....”,
@@ -90,6 +94,7 @@
         --------------> 컨텐츠 데이터 규격(이미지, 제목, 사진)
         {
         					msgType : ”UPDATE”,
+                            roomId : "aaaab...",
         					contentType: "PORAROID"
         					contentId: “basd23as-22323..",
         		      data: {
@@ -103,6 +108,7 @@
         
         {  ------------> 미사용
         					msgType : ”UPDATE”,
+                            roomId : "aaaab...",
         					contentType: "POSTIT"
         					contentId: “basd23as-22323..",
         		      data: {
@@ -113,6 +119,7 @@
         --------------> 컨텐츠 데이터 규격(위치, rotation)
         {
         					msgType : ”DRAG”,
+                            roomId : "aaaab...",
         					contentId: “basd23as-22323..",
                             rotation: ??,
         		      data : {
@@ -136,6 +143,7 @@
         ```
         *{*
         			  msgType : ”DELETE”,
+                      roomId : "aaaab...",
         			  contentType: "POLAROID",
         		      contentId: “basd23as-22323.."
         *};*
@@ -158,6 +166,7 @@
         ```
         {
         				 	msgType: ”JOIN”,
+                            roomId : "aaaab...",
         					userId: "aaa1234", // 입장한 유저 id
         		      onLineUsers: [“aaa1234”, "aabbcs2", "asd2easd"]
         };
@@ -168,6 +177,7 @@
         ```
         {
         				 	msgType: "LEAVE”,
+                            roomId : "aaaab...",
         					userId: "asd2easd" // 퇴장한 유저 id
         					onLineUsers: [“aaa1234”, "aabbcs2"]
         };
@@ -183,6 +193,7 @@
             ------------------------> PORAROID
             {
             					msgType : ”CREATE”,
+                                roomId : "aaaab...",
             					contentType: "PORAROID"
             					contentId: “basd23as-22323..",
             					data : {
@@ -205,6 +216,7 @@
             
             {
             					msgType : ”CREATE”,
+                                roomId : "aaaab...",
             					contentType: "POSIT"
             					contentId: “basd23as-22323..",
             					data : {
@@ -229,6 +241,7 @@
         ```
         {
         					msgType : ”ERROR”,
+                            roomId : "aaaab...",
         					errorMsg: "api 서버 에러",
         					roomId: "aaabasd-...",
         };
