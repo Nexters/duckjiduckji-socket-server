@@ -14,5 +14,6 @@ public class ContentDeleteDto implements Message {
     private String roomId;
     private String contentId;
     private String contentType; // "PORAROID", "POSTIT"
+    private String userId;
 }
 

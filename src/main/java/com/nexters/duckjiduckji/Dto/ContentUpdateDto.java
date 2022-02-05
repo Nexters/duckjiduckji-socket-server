@@ -14,5 +14,6 @@ public class ContentUpdateDto implements Message {
     private String roomId;
     private String contentType; // "PORAROID", "POSTIT"
     private String contentId;
+    private String userId;
     private ContentInnerData data;
 }
