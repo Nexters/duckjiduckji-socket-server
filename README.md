@@ -21,21 +21,21 @@
     
     ## 방 참여
     
-    ```
+    ```javascript
     {
-    			msgType: ”JOIN”,
-                roomId: "aaaaab....",
-    		    userId: “aaa1234”
+            msgType: ”JOIN”,
+            roomId: "aaaaab....",
+        	userId: “aaa1234”
     };
     ```
     
     ## 방 퇴장
     
-    ```
+    ```javascript
     {
-    			msgType: "LEAVE”,
-                roomId : "aaaaab....",
-        	    userId: “aaa1234”
+	        msgType: "LEAVE”,
+            roomId: "aaaaab....",
+            userId: “aaa1234”
     };
     ```
     
@@ -44,26 +44,25 @@
     - **생성**
         
         ```
-        
         ------------------------> PORAROID
-        {
-        					msgType : ”CREATE”,
-                            roomId: "aaaaab....",
-        					contentType: "PORAROID"
-        					data : {
-        				    images : [“http://.....”, “http://.....”],
-        				    title : “덕지덕지 회고방”,
-        				    content: “회고를 시작합니다!.....”,
-        						width: "100",
-        						height: "100",
-        						opacity: "0.1",
-        						font: "???",
-        					  point: {
-        							x: "100",
-        		 					y: "100",
-        							rotation: ??
-        						}
-        				 }
+    		{
+    		   	msgType : ”CREATE”,
+                roomId: "aaaaab....",
+    		    contentType: "PORAROID"
+      	    	data : {
+        		        images : [“http://.....”, “http://.....”],
+        			    title : “덕지덕지 회고방”,
+        			    content: “회고를 시작합니다!.....”,
+        				width: "100",
+        				height: "100",
+        				opacity: "0.1",
+        				font: "???",
+						rotation: ??
+        			  	point: {
+        					x: "100",
+        	 				y: "100",
+        				}
+        			}
         };
         
         ---------------------> POSIT (미사용)
