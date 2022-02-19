@@ -8,6 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ContentPositionData {
-    private String x;
-    private String y;
+    private Double x;
+    private Double y;
 }

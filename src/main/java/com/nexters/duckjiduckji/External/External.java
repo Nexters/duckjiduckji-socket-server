@@ -2,7 +2,7 @@ package com.nexters.duckjiduckji.External;
 
 import com.nexters.duckjiduckji.Dto.Message;
 import com.nexters.duckjiduckji.Exception.type.ApiServerException;
-import com.nexters.duckjiduckji.ExternalApiResponse.baseResponse.ExternalBaseResponse;
+import com.nexters.duckjiduckji.External.ApiResponse.BaseResponse.ExternalBaseResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
@@ -16,10 +16,10 @@ public class External {
 
     private final RestTemplate restTemplate;
 
-    public ExternalBaseResponse callApiServer(String apiServerInfo, HttpMethod httpMethod, Message message, HttpHeaders headers, Class clazz) {
+    public ExternalBaseResponse callApiServer(String apiServerInfo, HttpMethod httpMethod, Object request, HttpHeaders headers) {
 
-        HttpEntity<Object> entity = new HttpEntity<>(message, headers);
-        ResponseEntity<ExternalBaseResponse> apiResponse = restTemplate.exchange(apiServerInfo, httpMethod, entity, clazz);
+        HttpEntity<Object> entity = new HttpEntity<>(request, headers);
+        ResponseEntity<ExternalBaseResponse> apiResponse = restTemplate.exchange(apiServerInfo, httpMethod, entity, ExternalBaseResponse.class);
         log.info(apiResponse.toString());
 
         HttpStatus statusCode = apiResponse.getStatusCode();

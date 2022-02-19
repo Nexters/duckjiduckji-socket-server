@@ -38,7 +38,7 @@ server:
 
 api:
   server:
-    info: http://
+    info: http://localhost:8082
 
 file:
   server:

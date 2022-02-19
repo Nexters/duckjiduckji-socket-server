@@ -2,6 +2,10 @@ package com.nexters.duckjiduckji.Service;
 
 
 import com.nexters.duckjiduckji.Dto.*;
+import com.nexters.duckjiduckji.External.ApiRequest.Request.ContentCreateRequest;
+import com.nexters.duckjiduckji.External.ApiRequest.Request.ContentUpdateRequest;
+import com.nexters.duckjiduckji.External.ApiResponse.Response.ContentCreateResponse;
+import com.nexters.duckjiduckji.External.External;
 import com.nexters.duckjiduckji.Util.ApiHelper;
 import com.nexters.duckjiduckji.Util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +29,7 @@ import java.util.List;
 public class MessageService {
 
     private final RedisTemplate<String, Object> redisTemplate;
+    private final External external;
     private final ApiHelper apiHelper;
     private final HttpHeaders jsonHeader;
     private final JsonUtil jsonUtil;
@@ -31,8 +37,9 @@ public class MessageService {
     @Value("${api.server.info")
     private String apiServerUrl;
 
-    public MessageService(RedisTemplate redisTemplate, ApiHelper apiHelper, @Qualifier("application-json-header") HttpHeaders jsonHeader, JsonUtil jsonUtil) {
+    public MessageService(RedisTemplate redisTemplate, External external, ApiHelper apiHelper, @Qualifier("application-json-header") HttpHeaders jsonHeader, JsonUtil jsonUtil) {
         this.redisTemplate = redisTemplate;
+        this.external = external;
         this.apiHelper = apiHelper;
         this.jsonHeader = jsonHeader;
         this.jsonUtil = jsonUtil;
@@ -40,20 +47,32 @@ public class MessageService {
 
     // CREATE
     public Message createMessage(Message message) {
-        //String contentId = callApiServer(apiServerUrl, HttpMethod.POST, message, jsonHeader, message.getClass());
-        ((ContentCreateDto) message).setContentId("aaaaaa");
+        ContentCreateDto contentCreateDto = (ContentCreateDto) message;
+        String contentCreateUrl = apiServerUrl + File.separator + "contents";
+        ContentCreateRequest contentCreateRequest = ContentCreateRequest.convertDto(contentCreateDto);
+        ContentCreateResponse contentCreateResponse = (ContentCreateResponse) external.callApiServer(contentCreateUrl, HttpMethod.POST, contentCreateRequest, jsonHeader);
+        String contentId = contentCreateResponse.getData().getId();
+        ((ContentCreateDto) message).setContentId(contentId);
         return message;
     }
 
     // UPDATE
     public Message updateMessage(Message message) {
-       //callApiServer(apiServerUrl, HttpMethod.PUT, message, jsonHeader, message.getClass());
+        ContentUpdateDto contentUpdateDto = (ContentUpdateDto) message;
+        String contentId = contentUpdateDto.getContentId();
+        String contentUpdateUrl = apiServerUrl + File.separator + "contents" + File.separator + contentId;
+        ContentUpdateRequest contentUpdateRequest = ContentUpdateRequest.convertDto(contentUpdateDto);
+        external.callApiServer(contentUpdateUrl, HttpMethod.PUT, contentUpdateRequest, jsonHeader);
         return message;
     }
 
     // DELETE
     public Message deleteMessage(Message message) {
-        //callApiServer(apiServerUrl, HttpMethod.DELETE, message, jsonHeader, message.getClass());
+        ContentDeleteDto contentDeleteDto = (ContentDeleteDto) message;
+        String contentId = contentDeleteDto.getContentId();
+        String roomId = contentDeleteDto.getRoomId();
+        String contentDeleteUrl = apiServerUrl + File.separator + "contents" + File.separator + contentId + "?" + roomId;
+        external.callApiServer(contentDeleteUrl, HttpMethod.DELETE, message, jsonHeader);
         return message;
     }
 

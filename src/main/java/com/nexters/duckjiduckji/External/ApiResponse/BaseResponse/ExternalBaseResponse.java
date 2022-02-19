@@ -1,4 +1,4 @@
-package com.nexters.duckjiduckji.ExternalApiResponse.baseResponse;
+package com.nexters.duckjiduckji.External.ApiResponse.BaseResponse;
 
 import lombok.*;
 
@@ -9,4 +9,5 @@ import lombok.*;
 @ToString
 public class ExternalBaseResponse {
     private boolean success;
+    private String message;
 }
