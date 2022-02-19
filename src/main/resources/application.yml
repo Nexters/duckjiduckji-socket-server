@@ -1,12 +1,14 @@
 
 spring:
-  profiles:
-    active: local
+  profiles: local
 
   redis:
      host: 127.0.0.1
      port: 6379
      password: dkwmfrjdns1!
+
+server:
+  port: 8081
 
 api:
   server:
@@ -22,47 +24,21 @@ restemplate:
   defaultMaxPerRoute: 20
   maxToal: 50
 
-server:
-  port: 8081
-
 ---
 spring:
-  config:
-    activate:
-      on-profile: dev
+  profiles: dev
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: dkwmfrjdns1!
 
 server:
   port: 8081
 
 api:
   server:
-    info: http://
-
-file:
-  server:
-    info: http://
-
-log:
-  path: /home
-
-restemplate:
-  connectionTimeOut: 3000
-  readTimeOut: 300
-  defaultMaxPerRoute: 20
-  maxToal: 50
----
-
-spring:
-  config:
-    activate:
-      on-profile: prod
-
-server:
-  port: 8081
-
-api:
-  server:
-    info: http://
+    info: http://localhost:8082
 
 file:
   server:

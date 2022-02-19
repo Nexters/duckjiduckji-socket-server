@@ -1,6 +1,8 @@
 package com.nexters.duckjiduckji.Dto;
 
 import com.nexters.duckjiduckji.Const.MsgType;
+import com.nexters.duckjiduckji.External.ApiRequest.Request.ContentCreateRequest;
+import com.nexters.duckjiduckji.External.ApiRequest.Request.ContentUpdateRequest;
 import lombok.*;
 
 @Getter
