@@ -16,14 +16,15 @@ public class External {
 
     private final RestTemplate restTemplate;
 
-    public ExternalBaseResponse callApiServer(String apiServerInfo, HttpMethod httpMethod, Object request, HttpHeaders headers) {
+    public ExternalBaseResponse callApiServer(String apiServerInfo, HttpMethod httpMethod, Object request, HttpHeaders headers, Class clazz) {
 
+        log.info("apiServerInfo : " + apiServerInfo);
         HttpEntity<Object> entity = new HttpEntity<>(request, headers);
-        ResponseEntity<ExternalBaseResponse> apiResponse = restTemplate.exchange(apiServerInfo, httpMethod, entity, ExternalBaseResponse.class);
-        log.info(apiResponse.toString());
+        ResponseEntity apiResponse = restTemplate.exchange(apiServerInfo, httpMethod, entity, clazz);
+        log.info("[API REPONSE] : " + apiResponse.toString());
 
         HttpStatus statusCode = apiResponse.getStatusCode();
-        ExternalBaseResponse responseBody = apiResponse.getBody();
+        ExternalBaseResponse responseBody = (ExternalBaseResponse) apiResponse.getBody();
         log.info("api server response : " + responseBody.toString());
 
         if(statusCode != HttpStatus.OK || !responseBody.isSuccess()) {

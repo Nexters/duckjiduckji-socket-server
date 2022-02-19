@@ -123,7 +123,7 @@
                 roomId: roomId,
                 contentId: contentId,
                 userId: userId,
-                contentType: "PORAROID",
+                contentType: "POLAROID",
                 data : {
                         images: [{
                             order: 0,
@@ -153,6 +153,9 @@
             let contentId = $('input[name="contentId"]').val();
             let imgUrl = $('input[name="imgUrl"]').val();
             let content = $('input[name="content"]').val();
+            let posX = $('input[name="posX"]').val();
+            let posY = $('input[name="posY"]').val();
+            let rotation = $('input[name="rotation"]').val();
 
             console.log("contentId : " + contentId);
             console.log("imgUrl : " + imgUrl);
@@ -161,15 +164,24 @@
             let UPDATE_DATA = {
                 msgType: "UPDATE",
                 roomId: roomId,
-                contentType: "PORAROID",
                 contentId: contentId,
                 userId: userId,
+                contentType: "POLAROID",
                 data : {
                     images: [{
                         order: 0,
                         link: imgUrl
                     }],
-                    content: content
+                    content: content,
+                    width: "100",
+                    height: "100",
+                    opacity: "0.1",
+                    font: "FONT",
+                    rotation: rotation,
+                    point: {
+                        x: posX,
+                        y: posY
+                    }
                 }
             };
 
@@ -187,7 +199,7 @@
             let DELETE_DATA = {
                 msgType: "DELETE",
                 roomId: roomId,
-                contentType: "PORAROID",
+                contentType: "POLAROID",
                 contentId: contentId,
                 userId: userId
             };
@@ -199,24 +211,34 @@
        // 6. 드레그 이벤트
         sendBtn3.click(function () {
             let contentId = $('input[name="contentId"]').val();
+            let content = $('input[name="content"]').val();
+            let imgUrl = $('input[name="imgUrl"]').val();
             let posX = $('input[name="posX"]').val();
             let posY = $('input[name="posY"]').val();
             let rotation = $('input[name="rotation"]').val();
 
             let DRAG_DATA = {
-                    msgType: "DRAG",
-                    roomId: roomId,
-                    contentId: contentId,
-                    contentType: "POLAROID",
-                    userId: userId,
-                    data: {
-
-                        rotation: rotation,
-                        point : {
-                            x: posX,
-                            y: posY
-                        }
+                msgType: "DRAG",
+                roomId: roomId,
+                contentId: contentId,
+                userId: userId,
+                contentType: "POLAROID",
+                data : {
+                    images: [{
+                        order: 0,
+                        link: imgUrl
+                    }],
+                    content: content,
+                    width: "100",
+                    height: "100",
+                    opacity: "0.1",
+                    font: "FONT",
+                    rotation: rotation,
+                    point: {
+                        x: posX,
+                        y: posY
                     }
+                }
             };
 
             client.send('/publish/room/' + roomId, {}, JSON.stringify(DRAG_DATA));

@@ -10,5 +10,5 @@ import lombok.ToString;
 @Getter
 @ToString
 public class ContentDeleteResponseData {
-    private int deleteCount;
+    private Integer deletedCount;
 }

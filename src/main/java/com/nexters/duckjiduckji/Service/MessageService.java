@@ -5,6 +5,8 @@ import com.nexters.duckjiduckji.Dto.*;
 import com.nexters.duckjiduckji.External.ApiRequest.Request.ContentCreateRequest;
 import com.nexters.duckjiduckji.External.ApiRequest.Request.ContentUpdateRequest;
 import com.nexters.duckjiduckji.External.ApiResponse.Response.ContentCreateResponse;
+import com.nexters.duckjiduckji.External.ApiResponse.Response.ContentDeleteResponse;
+import com.nexters.duckjiduckji.External.ApiResponse.Response.ContentUpdateResponse;
 import com.nexters.duckjiduckji.External.External;
 import com.nexters.duckjiduckji.Util.ApiHelper;
 import com.nexters.duckjiduckji.Util.JsonUtil;
@@ -34,7 +36,7 @@ public class MessageService {
     private final HttpHeaders jsonHeader;
     private final JsonUtil jsonUtil;
 
-    @Value("${api.server.info")
+    @Value("${api.server.info}")
     private String apiServerUrl;
 
     public MessageService(RedisTemplate redisTemplate, External external, ApiHelper apiHelper, @Qualifier("application-json-header") HttpHeaders jsonHeader, JsonUtil jsonUtil) {
@@ -47,10 +49,14 @@ public class MessageService {
 
     // CREATE
     public Message createMessage(Message message) {
+        log.info("createMessage Service !!");
+
         ContentCreateDto contentCreateDto = (ContentCreateDto) message;
         String contentCreateUrl = apiServerUrl + File.separator + "contents";
         ContentCreateRequest contentCreateRequest = ContentCreateRequest.convertDto(contentCreateDto);
-        ContentCreateResponse contentCreateResponse = (ContentCreateResponse) external.callApiServer(contentCreateUrl, HttpMethod.POST, contentCreateRequest, jsonHeader);
+        log.info("ContentCreateRequest : " + jsonUtil.printJson(contentCreateRequest));
+
+        ContentCreateResponse contentCreateResponse = (ContentCreateResponse) external.callApiServer(contentCreateUrl, HttpMethod.POST, contentCreateRequest, jsonHeader, ContentCreateResponse.class);
         String contentId = contentCreateResponse.getData().getId();
         ((ContentCreateDto) message).setContentId(contentId);
         return message;
@@ -62,7 +68,9 @@ public class MessageService {
         String contentId = contentUpdateDto.getContentId();
         String contentUpdateUrl = apiServerUrl + File.separator + "contents" + File.separator + contentId;
         ContentUpdateRequest contentUpdateRequest = ContentUpdateRequest.convertDto(contentUpdateDto);
-        external.callApiServer(contentUpdateUrl, HttpMethod.PUT, contentUpdateRequest, jsonHeader);
+        log.info("ContentUpdateRequest : " + jsonUtil.printJson(contentUpdateRequest));
+
+        external.callApiServer(contentUpdateUrl, HttpMethod.PUT, contentUpdateRequest, jsonHeader, ContentUpdateResponse.class);
         return message;
     }
 
@@ -71,14 +79,20 @@ public class MessageService {
         ContentDeleteDto contentDeleteDto = (ContentDeleteDto) message;
         String contentId = contentDeleteDto.getContentId();
         String roomId = contentDeleteDto.getRoomId();
-        String contentDeleteUrl = apiServerUrl + File.separator + "contents" + File.separator + contentId + "?" + roomId;
-        external.callApiServer(contentDeleteUrl, HttpMethod.DELETE, message, jsonHeader);
+        String contentDeleteUrl = apiServerUrl + File.separator + "contents" + File.separator + contentId + "?roomId=" + roomId;
+        external.callApiServer(contentDeleteUrl, HttpMethod.DELETE, message, jsonHeader, ContentDeleteResponse.class);
         return message;
     }
 
     // DRAG
     public Message dragMessage(Message message) {
-        //callApiServer(apiServerUrl, HttpMethod.PUT, message, jsonHeader, message.getClass());
+        ContentUpdateDto contentUpdateDto = (ContentUpdateDto) message;
+        String contentId = contentUpdateDto.getContentId();
+        String contentUpdateUrl = apiServerUrl + File.separator + "contents" + File.separator + contentId;
+        ContentUpdateRequest contentUpdateRequest = ContentUpdateRequest.convertDto(contentUpdateDto);
+        log.info("ContentUpdateRequest : " + jsonUtil.printJson(contentUpdateRequest));
+
+        external.callApiServer(contentUpdateUrl, HttpMethod.PUT, contentUpdateRequest, jsonHeader, ContentUpdateResponse.class);
         return message;
     }
 
@@ -106,15 +120,15 @@ public class MessageService {
 
     public InMessage inProcess(String roomId, String userId) {
 
-        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
-        hashOperations.put(roomId, userId, 1);
+        //HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+        //hashOperations.put(roomId, userId, 1);
 
-        List<String> onLineUsers = new ArrayList(hashOperations.entries(roomId).keySet());
+        //List<String> onLineUsers = new ArrayList(hashOperations.entries(roomId).keySet());
 
         InMessage inMessage = InMessage.builder()
                 .roomId(roomId)
                 .userId(userId)
-                .onlineUsers(onLineUsers)
+                .onlineUsers(null)
                 .build();
 
         return inMessage;
@@ -122,15 +136,15 @@ public class MessageService {
 
     public OutMessage outProcess(String roomId, String userId) {
 
-        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
-        hashOperations.delete(roomId, userId);
+       //HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+       //hashOperations.delete(roomId, userId);
 
-        List<String> onLineUsers = new ArrayList(hashOperations.entries(roomId).keySet());
+       //List<String> onLineUsers = new ArrayList(hashOperations.entries(roomId).keySet());
 
         OutMessage outMessage = OutMessage.builder()
                 .roomId(roomId)
                 .userId(userId)
-                .onlineUsers(onLineUsers)
+                .onlineUsers(null)
                 .build();
 
         return outMessage;
