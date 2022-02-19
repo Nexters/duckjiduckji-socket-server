@@ -55,7 +55,7 @@
 		   "roomId":"aaaaab....",
 		   "contentId": null,
 		   "userId": "xowns9418",
-		   "contentType":"PORAROID"
+		   "contentType":"POLAROID"
 		   "data":{
 		      "images":[
 			 {
@@ -68,14 +68,18 @@
 		 	 }
 		      ],
 		      "content":"회고를 시작합니다!.....",
-		      "width":"100",
-		      "height":"100",
-		      "opacity":"0.1",
-		      "font":"???",
-		      "rotation":"??
+		      "width":100.1,
+		      "height":"100.1",
+		      "opacity":0.1,
+		      "font":"FONT",
+		      "rotation": "0.1",
 		      "point":{
-			 "x":"100",
-			 "y":"100"
+			 "x":100.2,
+			 "y":100.2
+		      },
+		      "background":{
+		      	 "image": "http:///..",
+			 "color": "#1234"
 		      }
 		   }
       }
@@ -88,11 +92,11 @@
      	{
 		   "msgType":"UPDATE",
 		   "roomId":"aaaaab....",
-		   "contentId": "asdklasds...",
+		   "contentId": "asdk20ajsld23",
 		   "userId": "xowns9418",
-		   "contentType":"PORAROID"
+		   "contentType":"POLAROID"
 		   "data":{
-		        "images":[
+		      "images":[
 			 {
 			 	"order": 0,
 			 	"link": “http://"
@@ -103,10 +107,19 @@
 		 	 }
 		      ],
 		      "content":"회고를 시작합니다!.....",
-		      "width":"100",
-		      "height":"100",
-		      "opacity":"0.1",
-		      "font":"???",
+		      "width":100.1,
+		      "height":"100.1",
+		      "opacity":0.1,
+		      "font":"FONT",
+		      "rotation": "0.1",
+		      "point":{
+			 "x":100.2,
+			 "y":100.2
+		      },
+		      "background":{
+		      	 "image": "http:///..",
+			 "color": "#1234"
+		      }
 		   }
      	 }
       ```
