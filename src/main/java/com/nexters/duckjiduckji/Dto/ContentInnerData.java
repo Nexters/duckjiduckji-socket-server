@@ -17,5 +17,6 @@ public class ContentInnerData { // default 값 설정
     private Double opacity;
     private String rotation;
     private String font;
+    private ContentBackground background;
     private ContentPositionData point;
 }
