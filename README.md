@@ -226,7 +226,11 @@
 			      "point":{
 				 "x":"100",
 				 "y":"100"
-			      }
+			      },
+			      "background": {
+                          	"image": "http://background",	
+                          	"color": "#12343"  
+                              }
 			   }
 	      }
       ```
