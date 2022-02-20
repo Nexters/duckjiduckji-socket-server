@@ -126,13 +126,13 @@
                 contentType: "POLAROID",
                 data : {
                         images: [{
-                            order: 0,
-                            link: imgUrl
+                            link: imgUrl,
+                            order: 0
                         }],
                         content: content,
-                        width: "100",
-                        height: "100",
-                        opacity: "0.1",
+                        width: 100.1,
+                        height: 100.1,
+                        opacity: 0.1,
                         font: "FONT",
                         rotation: rotation,
                         point: {
@@ -221,10 +221,12 @@
                 contentId: contentId,
                 userId: userId,
                 contentType: "POLAROID",
-                rotation: rotation,
-                point: {
+                data: {
+                    rotation: rotation,
+                    point: {
                         x: posX,
                         y: posY
+                    }
                 }
             };
 

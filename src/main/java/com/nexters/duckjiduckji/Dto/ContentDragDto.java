@@ -14,6 +14,5 @@ public class ContentDragDto implements Message {
     private String contentType; // "PORAROID", "POSTIT"
     private String contentId;
     private String userId;
-    private ContentPositionData point;
-    private String rotation;
+    private ContentDragInnerData data;
 }
