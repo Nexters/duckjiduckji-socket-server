@@ -104,7 +104,7 @@
         {
         	"msgType" : "DRAG",
             "roomId": "550e8400-e29b-41d4-a716-446655440000",
-            "contentId": "asjdiwsjd-..,
+            "contentId": "asjdiwsjd-..",
             "userId": "xowns9418",
         	"contentType": "PORAROID"
         	"data" : {
@@ -114,7 +114,7 @@
         			"y": 50.1 -> Double
         		}
         	}
-        };
+        }
                    
         ```
     
@@ -128,7 +128,7 @@
         		"contentType": "POLAROID",
         	    "contentId": "basd23as-22323..",
                 "userId": "xowns9418"
-        };
+        }
         ```
         
     
