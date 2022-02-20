@@ -3,9 +3,11 @@ package com.nexters.duckjiduckji.Service;
 
 import com.nexters.duckjiduckji.Dto.*;
 import com.nexters.duckjiduckji.External.ApiRequest.Request.ContentCreateRequest;
+import com.nexters.duckjiduckji.External.ApiRequest.Request.ContentDragRequest;
 import com.nexters.duckjiduckji.External.ApiRequest.Request.ContentUpdateRequest;
 import com.nexters.duckjiduckji.External.ApiResponse.Response.ContentCreateResponse;
 import com.nexters.duckjiduckji.External.ApiResponse.Response.ContentDeleteResponse;
+import com.nexters.duckjiduckji.External.ApiResponse.Response.ContentDragResponse;
 import com.nexters.duckjiduckji.External.ApiResponse.Response.ContentUpdateResponse;
 import com.nexters.duckjiduckji.External.External;
 import com.nexters.duckjiduckji.Util.ApiHelper;
@@ -49,8 +51,6 @@ public class MessageService {
 
     // CREATE
     public Message createMessage(Message message) {
-        log.info("createMessage Service !!");
-
         ContentCreateDto contentCreateDto = (ContentCreateDto) message;
         String contentCreateUrl = apiServerUrl + File.separator + "contents";
         ContentCreateRequest contentCreateRequest = ContentCreateRequest.convertDto(contentCreateDto);
@@ -80,27 +80,25 @@ public class MessageService {
         String contentId = contentDeleteDto.getContentId();
         String roomId = contentDeleteDto.getRoomId();
         String contentDeleteUrl = apiServerUrl + File.separator + "contents" + File.separator + contentId + "?roomId=" + roomId;
+
         external.callApiServer(contentDeleteUrl, HttpMethod.DELETE, message, jsonHeader, ContentDeleteResponse.class);
         return message;
     }
 
     // DRAG
     public Message dragMessage(Message message) {
-        ContentUpdateDto contentUpdateDto = (ContentUpdateDto) message;
-        String contentId = contentUpdateDto.getContentId();
-        String contentUpdateUrl = apiServerUrl + File.separator + "contents" + File.separator + contentId;
-        ContentUpdateRequest contentUpdateRequest = ContentUpdateRequest.convertDto(contentUpdateDto);
-        log.info("ContentUpdateRequest : " + jsonUtil.printJson(contentUpdateRequest));
+        ContentDragDto contentDragDto = (ContentDragDto) message;
+        String contentId = contentDragDto.getContentId();
+        String contentDragUrl = apiServerUrl + File.separator + "contents" + File.separator + contentId + File.separator + "location";
+        ContentDragRequest contentDragRequest = ContentDragRequest.convertDto(contentDragDto);
+        log.info("contentDragRequest : " + jsonUtil.printJson(contentDragRequest));
 
-        external.callApiServer(contentUpdateUrl, HttpMethod.PUT, contentUpdateRequest, jsonHeader, ContentUpdateResponse.class);
+        external.callApiServer(contentDragUrl, HttpMethod.PATCH, contentDragRequest, jsonHeader, ContentDragResponse.class);
         return message;
     }
 
     // IN
     public Message inMessage(Message message) {
-        //callApiServer(apiServerUrl, HttpMethod.POST, message, jsonHeader, message.getClass());
-        //String errorMsg = "api 서버 error msg";
-        //if(true) throw new ApiServerException(roomId + ":" + errorMsg);
 
         InMessage inMessage = (InMessage) message;
         String roomId = inMessage.getRoomId();
@@ -120,10 +118,10 @@ public class MessageService {
 
     public InMessage inProcess(String roomId, String userId) {
 
-        //HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
-        //hashOperations.put(roomId, userId, 1);
+        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+        hashOperations.put(roomId, userId, 1);
 
-        //List<String> onLineUsers = new ArrayList(hashOperations.entries(roomId).keySet());
+        List<String> onLineUsers = new ArrayList(hashOperations.entries(roomId).keySet());
 
         InMessage inMessage = InMessage.builder()
                 .roomId(roomId)
@@ -136,10 +134,10 @@ public class MessageService {
 
     public OutMessage outProcess(String roomId, String userId) {
 
-       //HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
-       //hashOperations.delete(roomId, userId);
+       HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+       hashOperations.delete(roomId, userId);
 
-       //List<String> onLineUsers = new ArrayList(hashOperations.entries(roomId).keySet());
+       List<String> onLineUsers = new ArrayList(hashOperations.entries(roomId).keySet());
 
         OutMessage outMessage = OutMessage.builder()
                 .roomId(roomId)

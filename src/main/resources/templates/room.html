@@ -211,8 +211,6 @@
        // 6. 드레그 이벤트
         sendBtn3.click(function () {
             let contentId = $('input[name="contentId"]').val();
-            let content = $('input[name="content"]').val();
-            let imgUrl = $('input[name="imgUrl"]').val();
             let posX = $('input[name="posX"]').val();
             let posY = $('input[name="posY"]').val();
             let rotation = $('input[name="rotation"]').val();
@@ -223,21 +221,10 @@
                 contentId: contentId,
                 userId: userId,
                 contentType: "POLAROID",
-                data : {
-                    images: [{
-                        order: 0,
-                        link: imgUrl
-                    }],
-                    content: content,
-                    width: "100",
-                    height: "100",
-                    opacity: "0.1",
-                    font: "FONT",
-                    rotation: rotation,
-                    point: {
+                rotation: rotation,
+                point: {
                         x: posX,
                         y: posY
-                    }
                 }
             };
 

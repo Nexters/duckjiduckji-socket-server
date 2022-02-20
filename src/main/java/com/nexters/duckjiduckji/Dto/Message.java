@@ -13,7 +13,7 @@ import com.nexters.duckjiduckji.Const.MsgType;
         @JsonSubTypes.Type(name = "LEAVE", value = OutMessage.class),
         @JsonSubTypes.Type(name = "CREATE", value = ContentCreateDto.class),
         @JsonSubTypes.Type(name = "UPDATE", value = ContentUpdateDto.class),
-        @JsonSubTypes.Type(name = "DRAG", value = ContentUpdateDto.class),
+        @JsonSubTypes.Type(name = "DRAG", value = ContentDragDto.class),
         @JsonSubTypes.Type(name = "DELETE", value = ContentDeleteDto.class)
 })
 public interface Message {
